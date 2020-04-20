@@ -1,18 +1,15 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <el-container class="app-main">
+    {{ messg }}
+  </el-container>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
 export default {
-  name: "Home",
-  components: {
-    HelloWorld
+  data() {
+    return {
+      messg: "这里主页，关于数据库的介绍"
+    };
   }
 };
 </script>
