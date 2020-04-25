@@ -2,34 +2,32 @@
 var sqlMap = {
   property: {
     // 显示数据
-    selectmono: "select * from monodna",
-    selectdidnapseinone: "select * from `didna-pse-in-one`",
-    selectdidnaultrapse: "select * from `didna-ultrapse`",
-    selectdidnavis: "select * from `didna-visfeature`",
-    selectdirnapseinone: "select * from `dirna-pse-in-one`",
-    selectdirnaultrapse: "select * from `dirna-ultrapse`",
-    selectdirnavis: "select * from `dirna-visfeature`",
-    selecttridnaultrapse: "select * from `tridna-ultrapse`",
-    selecttridnavis: "select * from `tridna-visfeature`",
+    selectmonooriginal: "select * from `monodna-original`",
+    selectmonostandard: "select * from `monodna-standard`",
+    selectdidnaoriginal: "select * from `didna-original`",
+    selectdidnastandard: "select * from `didna-standard`",
+    selectdirnaoriginal: "select * from `dirna-original`",
+    selectdirnastandard: "select * from `dirna-standard`",
+    selecttridnaoriginal: "select * from `tridna-original`",
+    selecttridnastandard: "select * from `tridna-standard`",
 
     // 搜索数据
-    searchmono: 'select * from monodna where PropertyName like "%"?"%"',
-    searchdidnapseinone:
-      'select * from `didna-pse-in-one` where PropertyName like "%"?"%"',
-    searchdidnaultrapse:
-      'select * from `didna-ultrapse` where PropertyName like "%"?"%"',
-    searchdidnavis:
-      'select * from `didna-visfeature` where PropertyName like "%"?"%"',
-    searchdirnapseinone:
-      'select * from `dirna-pse-in-one` where PropertyName like "%"?"%"',
-    searchdirnaultrapse:
-      'select * from `dirna-ultrapse` where PropertyName like "%"?"%"',
-    searchdirnavis:
-      'select * from `dirna-visfeature` where PropertyName like "%"?"%"',
-    searchtridnaultrapse:
-      'select * from `tridna-ultrapse` where PropertyName like "%"?"%"',
-    searchtridnavis:
-      'select * from `tridna-visfeature` where PropertyName like "%"?"%"'
+    searchmonoori:
+      'select * from `monodna-original` where PropertyName like "%"?"%"',
+    searchmonostan:
+      'select * from `monodna-standard` where PropertyName like "%"?"%"',
+    searchdidnaori:
+      'select * from `didna-original` where PropertyName like "%"?"%"',
+    searchdidnastan:
+      'select * from `didna-standard` where PropertyName like "%"?"%"',
+    searchdirnaori:
+      'select * from `dirna-original` where PropertyName like "%"?"%"',
+    searchdirnastan:
+      'select * from `dirna-standard` where PropertyName like "%"?"%"',
+    searchtridnaori:
+      'select * from `tridna-original` where PropertyName like "%"?"%"',
+    searchtridnastan:
+      'select * from `tridna-standard` where PropertyName like "%"?"%"'
   }
 };
 

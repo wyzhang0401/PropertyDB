@@ -40,11 +40,17 @@
     <el-main class="content">
       <!-- 折叠面板 -->
       <el-collapse v-model="activeNames">
-        <el-collapse-item v-if="id === 1 || id === 10" title="MonoDNA" name="1">
-          <!-- 对应表 monodna -->
+        <el-collapse-item
+          v-if="id === 1 || id === 10"
+          title="mononucleotide-DNA-original"
+          name="1"
+        >
+          <!-- 对应表 monodna-original -->
           <div class="tabletitle">
             <el-row>
-              <el-col :span="2" :offset="10">MonoDNA</el-col>
+              <el-col :span="4" :offset="10">
+                mononucleotide-DNA-original
+              </el-col>
               <el-col :span="1" v-if="id === 1"
                 ><el-button
                   icon="el-icon-download"
@@ -59,7 +65,7 @@
 
           <el-table
             id="myTable1"
-            :data="monodna"
+            :data="monodnaoriginal"
             :row-class-name="tabRowClassName"
             empty-text="cannot find"
             border
@@ -81,11 +87,6 @@
               label="PubMedID"
               width="100"
             ></el-table-column>
-            <el-table-column
-              prop="Description"
-              label="Description"
-              width="200"
-            ></el-table-column>
             <el-table-column prop="A" label="A"></el-table-column>
             <el-table-column prop="C" label="C"></el-table-column>
             <el-table-column prop="G" label="G"></el-table-column>
@@ -95,13 +96,15 @@
 
         <el-collapse-item
           v-if="id === 2 || id === 10"
-          title="DiDNA(Pse-in-One)"
+          title="mononucleotide-DNA-standardized"
           name="2"
         >
-          <!-- 对应表 didna-pse-in-one -->
+          <!-- 对应表 monodna-standardized -->
           <div class="tabletitle">
             <el-row>
-              <el-col :span="4" :offset="10">DiDNA(Pse-in-One)</el-col>
+              <el-col :span="6" :offset="8">
+                mononucleotide-DNA-standardized
+              </el-col>
               <el-col :span="1" v-if="id === 2"
                 ><el-button
                   icon="el-icon-download"
@@ -116,7 +119,7 @@
 
           <el-table
             id="myTable2"
-            :data="didnapseinone"
+            :data="monodnastandard"
             :row-class-name="tabRowClassName"
             empty-text="cannot find"
             border
@@ -138,42 +141,24 @@
               label="PubMedID"
               width="100"
             ></el-table-column>
-            <el-table-column
-              prop="Description"
-              label="Description"
-              width="200"
-            ></el-table-column>
-            <el-table-column prop="AA" label="AA"></el-table-column>
-            <el-table-column prop="AG" label="AG"></el-table-column>
-            <el-table-column prop="AC" label="AC"></el-table-column>
-            <el-table-column prop="AT" label="AT"></el-table-column>
-
-            <el-table-column prop="GA" label="GA"></el-table-column>
-            <el-table-column prop="GG" label="GG"></el-table-column>
-            <el-table-column prop="GC" label="GC"></el-table-column>
-            <el-table-column prop="GT" label="GT"></el-table-column>
-
-            <el-table-column prop="CA" label="CA"></el-table-column>
-            <el-table-column prop="CG" label="CG"></el-table-column>
-            <el-table-column prop="CC" label="CC"></el-table-column>
-            <el-table-column prop="CT" label="CT"></el-table-column>
-
-            <el-table-column prop="TA" label="TA"></el-table-column>
-            <el-table-column prop="TG" label="TG"></el-table-column>
-            <el-table-column prop="TC" label="TC"></el-table-column>
-            <el-table-column prop="TT" label="TT"></el-table-column>
+            <el-table-column prop="A" label="A"></el-table-column>
+            <el-table-column prop="C" label="C"></el-table-column>
+            <el-table-column prop="G" label="G"></el-table-column>
+            <el-table-column prop="T" label="T"></el-table-column>
           </el-table>
         </el-collapse-item>
 
         <el-collapse-item
           v-if="id === 3 || id === 10"
-          title="DiDNA(UltraPse)"
+          title="dinucleotide-DNA-original"
           name="3"
         >
-          <!-- 对应表 didna-ultrapse -->
+          <!-- 对应表 didna-original -->
           <div class="tabletitle">
             <el-row>
-              <el-col :span="4" :offset="10">DiDNA(UltraPse)</el-col>
+              <el-col :span="4" :offset="10">
+                dinucleotide-DNA-original
+              </el-col>
               <el-col :span="1" v-if="id === 3"
                 ><el-button
                   icon="el-icon-download"
@@ -188,7 +173,8 @@
 
           <el-table
             id="myTable3"
-            :data="didnaultra"
+            :data="didnaoriginal"
+            height="400"
             :row-class-name="tabRowClassName"
             empty-text="cannot find"
             border
@@ -209,11 +195,6 @@
               prop="PubMedID"
               label="PubMedID"
               width="100"
-            ></el-table-column>
-            <el-table-column
-              prop="Description"
-              label="Description"
-              width="200"
             ></el-table-column>
             <el-table-column prop="AA" label="AA"></el-table-column>
             <el-table-column prop="AG" label="AG"></el-table-column>
@@ -239,13 +220,15 @@
 
         <el-collapse-item
           v-if="id === 4 || id === 10"
-          title="DiDNA(VisFeature)"
+          title="dinucleotide-DNA-standardized"
           name="4"
         >
-          <!-- 对应表 didna-visfeature -->
+          <!-- 对应表 didna-standardized -->
           <div class="tabletitle">
             <el-row>
-              <el-col :span="4" :offset="10">DiDNA(VisFeature)</el-col>
+              <el-col :span="4" :offset="10">
+                dinucleotide-DNA-standardized
+              </el-col>
               <el-col :span="1" v-if="id === 4"
                 ><el-button
                   icon="el-icon-download"
@@ -260,7 +243,8 @@
 
           <el-table
             id="myTable4"
-            :data="didnavis"
+            :data="didnastandard"
+            height="400"
             :row-class-name="tabRowClassName"
             empty-text="cannot find"
             border
@@ -281,11 +265,6 @@
               prop="PubMedID"
               label="PubMedID"
               width="100"
-            ></el-table-column>
-            <el-table-column
-              prop="Description"
-              label="Description"
-              width="200"
             ></el-table-column>
             <el-table-column prop="AA" label="AA"></el-table-column>
             <el-table-column prop="AG" label="AG"></el-table-column>
@@ -311,13 +290,13 @@
 
         <el-collapse-item
           v-if="id === 5 || id === 10"
-          title="DiRNA(Pse-in-One)"
+          title="dinucleotide-RNA-original"
           name="5"
         >
-          <!-- 对应表 dirna-pse-in-one -->
+          <!-- 对应表 dirna-original -->
           <div class="tabletitle">
             <el-row>
-              <el-col :span="4" :offset="10">DiRNA(Pse-in-One)</el-col>
+              <el-col :span="4" :offset="10">dinucleotide-RNA-original</el-col>
               <el-col :span="1" v-if="id === 5"
                 ><el-button
                   icon="el-icon-download"
@@ -332,7 +311,8 @@
 
           <el-table
             id="myTable5"
-            :data="dirnapseinone"
+            :data="dirnaoriginal"
+            height="400"
             :row-class-name="tabRowClassName"
             empty-text="cannot find"
             border
@@ -353,11 +333,6 @@
               prop="PubMedID"
               label="PubMedID"
               width="100"
-            ></el-table-column>
-            <el-table-column
-              prop="Description"
-              label="Description"
-              width="200"
             ></el-table-column>
             <el-table-column prop="AA" label="AA"></el-table-column>
             <el-table-column prop="AG" label="AG"></el-table-column>
@@ -383,13 +358,15 @@
 
         <el-collapse-item
           v-if="id === 6 || id === 10"
-          title="DiRNA(UltraPse)"
+          title="dinucleotide-RNA-standardized"
           name="6"
         >
-          <!-- 对应表 dirna-ultrapse -->
+          <!-- 对应表 dirna-standardized -->
           <div class="tabletitle">
             <el-row>
-              <el-col :span="4" :offset="10">DiRNA(UltraPse)</el-col>
+              <el-col :span="4" :offset="10">
+                dinucleotide-RNA-standardized
+              </el-col>
               <el-col :span="1" v-if="id === 6"
                 ><el-button
                   icon="el-icon-download"
@@ -404,7 +381,8 @@
 
           <el-table
             id="myTable6"
-            :data="dirnaultra"
+            :data="dirnastandard"
+            height="400"
             :row-class-name="tabRowClassName"
             empty-text="cannot find"
             border
@@ -425,11 +403,6 @@
               prop="PubMedID"
               label="PubMedID"
               width="100"
-            ></el-table-column>
-            <el-table-column
-              prop="Description"
-              label="Description"
-              width="200"
             ></el-table-column>
             <el-table-column prop="AA" label="AA"></el-table-column>
             <el-table-column prop="AG" label="AG"></el-table-column>
@@ -455,13 +428,15 @@
 
         <el-collapse-item
           v-if="id === 7 || id === 10"
-          title="DiRNA(VisFeature)"
+          title="trinucleotide-DNA-original"
           name="7"
         >
-          <!-- 对应表 dirna-visfeature -->
+          <!-- 对应表 tridna-original -->
           <div class="tabletitle">
             <el-row>
-              <el-col :span="4" :offset="10">DiRNA(VisFeature)</el-col>
+              <el-col :span="4" :offset="10">
+                trinucleotide-DNA-original
+              </el-col>
               <el-col :span="1" v-if="id === 7"
                 ><el-button
                   icon="el-icon-download"
@@ -476,7 +451,8 @@
 
           <el-table
             id="myTable7"
-            :data="dirnavis"
+            :data="tridnaoriginal"
+            height="400"
             :row-class-name="tabRowClassName"
             empty-text="cannot find"
             border
@@ -497,83 +473,6 @@
               prop="PubMedID"
               label="PubMedID"
               width="100"
-            ></el-table-column>
-            <el-table-column
-              prop="Description"
-              label="Description"
-              width="200"
-            ></el-table-column>
-            <el-table-column prop="AA" label="AA"></el-table-column>
-            <el-table-column prop="AG" label="AG"></el-table-column>
-            <el-table-column prop="AC" label="AC"></el-table-column>
-            <el-table-column prop="AU" label="AU"></el-table-column>
-
-            <el-table-column prop="GA" label="GA"></el-table-column>
-            <el-table-column prop="GG" label="GG"></el-table-column>
-            <el-table-column prop="GC" label="GC"></el-table-column>
-            <el-table-column prop="GU" label="GU"></el-table-column>
-
-            <el-table-column prop="CA" label="CA"></el-table-column>
-            <el-table-column prop="CG" label="CG"></el-table-column>
-            <el-table-column prop="CC" label="CC"></el-table-column>
-            <el-table-column prop="CU" label="CU"></el-table-column>
-
-            <el-table-column prop="UA" label="UA"></el-table-column>
-            <el-table-column prop="UG" label="UG"></el-table-column>
-            <el-table-column prop="UC" label="UC"></el-table-column>
-            <el-table-column prop="UU" label="UU"></el-table-column>
-          </el-table>
-        </el-collapse-item>
-
-        <el-collapse-item
-          v-if="id === 8 || id === 10"
-          title="TriDNA(UltraPse)"
-          name="8"
-        >
-          <!-- 对应表 tridna-ultrapse -->
-          <div class="tabletitle">
-            <el-row>
-              <el-col :span="4" :offset="10">TriDNA(UltraPse)</el-col>
-              <el-col :span="1" v-if="id === 8"
-                ><el-button
-                  icon="el-icon-download"
-                  circle
-                  size="mini"
-                  type="info"
-                  @click="export2excel"
-                ></el-button
-              ></el-col>
-            </el-row>
-          </div>
-
-          <el-table
-            id="myTable8"
-            :data="tridnaultra"
-            :row-class-name="tabRowClassName"
-            empty-text="cannot find"
-            border
-            style="width: 100%"
-          >
-            <el-table-column prop="ID" label="ID" width="80"></el-table-column>
-            <el-table-column
-              prop="PropertyName"
-              label="PropertyName"
-              width="120"
-            ></el-table-column>
-            <el-table-column
-              prop="ReferID"
-              label="ReferID"
-              width="100"
-            ></el-table-column>
-            <el-table-column
-              prop="PubMedID"
-              label="PubMedID"
-              width="100"
-            ></el-table-column>
-            <el-table-column
-              prop="Description"
-              label="Description"
-              width="200"
             ></el-table-column>
             <el-table-column prop="AAA" label="AAA"></el-table-column>
             <el-table-column prop="AAG" label="AAG"></el-table-column>
@@ -646,15 +545,17 @@
         </el-collapse-item>
 
         <el-collapse-item
-          v-if="id === 9 || id === 10"
-          title="TriDNA(VisFeature)"
-          name="9"
+          v-if="id === 8 || id === 10"
+          title="trinucleotide-DNA-standardized"
+          name="8"
         >
-          <!-- 对应表 tridna-visfeature -->
+          <!-- 对应表 tridna-standardized -->
           <div class="tabletitle">
             <el-row>
-              <el-col :span="4" :offset="10">TriDNA(VisFeature)</el-col>
-              <el-col :span="1" v-if="id === 9"
+              <el-col :span="6" :offset="8">
+                trinucleotide-DNA-standardized
+              </el-col>
+              <el-col :span="1" v-if="id === 8"
                 ><el-button
                   icon="el-icon-download"
                   circle
@@ -667,8 +568,9 @@
           </div>
 
           <el-table
-            id="myTable9"
-            :data="tridnavis"
+            id="myTable8"
+            :data="tridnastandard"
+            height="400"
             :row-class-name="tabRowClassName"
             empty-text="cannot find"
             border
@@ -689,11 +591,6 @@
               prop="PubMedID"
               label="PubMedID"
               width="100"
-            ></el-table-column>
-            <el-table-column
-              prop="Description"
-              label="Description"
-              width="200"
             ></el-table-column>
             <el-table-column prop="AAA" label="AAA"></el-table-column>
             <el-table-column prop="AAG" label="AAG"></el-table-column>
@@ -777,72 +674,67 @@ import XLSX from "xlsx";
 export default {
   data() {
     return {
-      // messg: ["","","","","","","","",""], // 出现错误，不能及时渲染到页面
-      monodna: "",
-      didnapseinone: "",
-      didnaultra: "",
-      didnavis: "",
-      dirnapseinone: "",
-      dirnaultra: "",
-      dirnavis: "",
-      tridnaultra: "",
-      tridnavis: "",
+      // messg: ["","","","","","","",""], // 出现错误，不能及时渲染到页面
+      monodnaoriginal: "",
+      monodnastandard: "",
+      didnaoriginal: "",
+      didnastandard: "",
+      dirnaoriginal: "",
+      dirnastandard: "",
+      tridnaoriginal: "",
+      tridnastandard: "",
       id: 0,
       activeNames: [],
       options: [
         {
-          label: "MonoDNA",
+          label: "DNA-mononucleotide",
           options: [
             {
               value: "option1",
-              label: "MonoDNA"
+              label: "original values"
+            },
+            {
+              value: "option2",
+              label: "standardized values"
             }
           ]
         },
         {
-          label: "DiDNA",
+          label: "DNA-dinucleotide",
           options: [
             {
-              value: "option2",
-              label: "DiDNA(Pse-in-One)"
-            },
-            {
               value: "option3",
-              label: "DiDNA(UltraPse)"
+              label: "original values"
             },
             {
               value: "option4",
-              label: "DiDNA(VisFeature)"
+              label: "standardized values"
             }
           ]
         },
         {
-          label: "DiRNA",
+          label: "RNA-dinucleotide",
           options: [
             {
               value: "option5",
-              label: "DiRNA(Pse-in-One)"
+              label: "original values"
             },
             {
               value: "option6",
-              label: "DiRNA(UltraPse)"
-            },
-            {
-              value: "option7",
-              label: "DiRNA(VisFeature)"
+              label: "standardized values"
             }
           ]
         },
         {
-          label: "TriDNA",
+          label: "DNA-trinucleotide",
           options: [
             {
-              value: "option8",
-              label: "TriDNA(UltraPse)"
+              value: "option7",
+              label: "original values"
             },
             {
-              value: "option9",
-              label: "TriDNA(VisFeature)"
+              value: "option8",
+              label: "standardized values"
             }
           ]
         }
@@ -867,15 +759,14 @@ export default {
       let myTable = "#myTable";
       let fileName = ".xlsx";
       let file = [
-        "monodna",
-        "didna-pse-in-one",
-        "didna-ultrapse",
-        "didna-visfeature",
-        "dirna-pse-in-one",
-        "dirna-ultrapse",
-        "dirna-visfeature",
-        "tridna-ultrapse",
-        "tridna-visfeature"
+        "mononucleotide-DNA-original",
+        "mononucleotide-DNA-standardized",
+        "dinucleotide-DNA-original",
+        "dinucleotide-DNA-standardized",
+        "dinucleotide-RNA-original",
+        "dinucleotide-RNA-standardized",
+        "trinucleotide-DNA-original",
+        "trinucleotide-DNA-standardized"
       ];
       myTable = myTable + String(id);
       fileName = file[id - 1] + fileName;
@@ -918,42 +809,39 @@ export default {
       // 选择框和搜索框都没有内容,在页面中显示所有表中的数据内容
       if (nucleName == "" && propertyName == "") {
         _this.activeNames = [];
-        axios.post("/api/property/mono").then(function(respond) {
-          _this.monodna = respond.data;
+        axios.post("/api/property/monodnaoriginal").then(function(respond) {
+          _this.monodnaoriginal = respond.data;
         });
-        axios.post("/api/property/didnapseinone").then(function(respond) {
-          _this.didnapseinone = respond.data;
+        axios.post("/api/property/monodnastandard").then(function(respond) {
+          _this.monodnastandard = respond.data;
         });
-        axios.post("/api/property/didnaultrapse").then(function(respond) {
-          _this.didnaultra = respond.data;
+        axios.post("/api/property/didnaoriginal").then(function(respond) {
+          _this.didnaoriginal = respond.data;
         });
-        axios.post("/api/property/didnavisfeature").then(function(respond) {
-          _this.didnavis = respond.data;
+        axios.post("/api/property/didnastandard").then(function(respond) {
+          _this.didnastandard = respond.data;
         });
-        axios.post("/api/property/dirnapseinone").then(function(respond) {
-          _this.dirnapseinone = respond.data;
+        axios.post("/api/property/dirnaoriginal").then(function(respond) {
+          _this.dirnaoriginal = respond.data;
         });
-        axios.post("/api/property/dirnaultrapse").then(function(respond) {
-          _this.dirnaultra = respond.data;
+        axios.post("/api/property/dirnastandard").then(function(respond) {
+          _this.dirnastandard = respond.data;
         });
-        axios.post("/api/property/dirnavisfeature").then(function(respond) {
-          _this.dirnavis = respond.data;
+        axios.post("/api/property/tridnaoriginal").then(function(respond) {
+          _this.tridnaoriginal = respond.data;
         });
-        axios.post("/api/property/tridnaultrapse").then(function(respond) {
-          _this.tridnaultra = respond.data;
-        });
-        axios.post("/api/property/tridnavisfeature").then(function(respond) {
-          _this.tridnavis = respond.data;
+        axios.post("/api/property/tridnastandard").then(function(respond) {
+          _this.tridnastandard = respond.data;
           _this.id = 10;
         });
       }
-      // 选择框为option1(MonoDNA)
+      // 选择框为option1(MonoDNA-original)
       else if (nucleName == "option1") {
         //  且 搜索框为空
         if (propertyName == "") {
-          axios.post("/api/property/mono").then(function(respond) {
-            console.log(respond);
-            _this.monodna = respond.data;
+          axios.post("/api/property/monodnaoriginal").then(function(respond) {
+            // console.log(respond);
+            _this.monodnaoriginal = respond.data;
             // console.log(respond.data[0].PropertyName)
             _this.id = 1;
           });
@@ -961,222 +849,198 @@ export default {
         //  且 搜索框不空
         else {
           axios
-            .post("/api/property/searchmono", { propertyName })
+            .post("/api/property/searchmonoori", { propertyName })
             .then(respond => {
               _this.id = 1;
-              _this.monodna = respond.data;
+              _this.monodnaoriginal = respond.data;
             });
         }
       }
-      // 选择框为option2(DiDNA(Pse-in-One))
+
+      // 选择框为option2(MonoDNA-standard)
       else if (nucleName == "option2") {
         //  且 搜索框为空
         if (propertyName == "") {
-          axios.post("/api/property/didnapseinone").then(function(respond) {
-            // console.log(respond)
-            _this.didnapseinone = respond.data;
+          axios.post("/api/property/monodnastandard").then(function(respond) {
+            // console.log(respond);
+            _this.monodnastandard = respond.data;
+            // console.log(respond.data[0].PropertyName)
             _this.id = 2;
           });
         }
         //  且 搜索框不空
         else {
           axios
-            .post("/api/property/searchdidnapseinone", { propertyName })
-            .then(function(respond) {
+            .post("/api/property/searchmonostan", { propertyName })
+            .then(respond => {
               _this.id = 2;
-              _this.didnapseinone = respond.data;
+              _this.monodnastandard = respond.data;
             });
         }
       }
-      // 选择框为option3(DiDNA(Ultrapse))
+      // 选择框为option3(DiDNA-original)
       else if (nucleName == "option3") {
         //  且 搜索框为空
         if (propertyName == "") {
-          axios.post("/api/property/didnaultrapse").then(function(respond) {
+          axios.post("/api/property/didnaoriginal").then(function(respond) {
             // console.log(respond)
-            _this.didnaultra = respond.data;
+            _this.didnaoriginal = respond.data;
             _this.id = 3;
           });
         }
         //  且 搜索框不空
         else {
           axios
-            .post("/api/property/searchdidnaultrapse", { propertyName })
+            .post("/api/property/searchdidnaori", { propertyName })
             .then(function(respond) {
               _this.id = 3;
-              _this.didnaultra = respond.data;
+              _this.didnaoriginal = respond.data;
             });
         }
       }
-      // 选择框为option4(DiDNA(Visfeature))
+      // 选择框为option4(DiDNA-standard)
       else if (nucleName == "option4") {
         //  且 搜索框为空
         if (propertyName == "") {
-          axios.post("/api/property/didnavisfeature").then(function(respond) {
+          axios.post("/api/property/didnastandard").then(function(respond) {
             // console.log(respond)
-            _this.didnavis = respond.data;
+            _this.didnastandard = respond.data;
             _this.id = 4;
           });
         }
         //  且 搜索框不空
         else {
           axios
-            .post("/api/property/searchdidnavisfeature", { propertyName })
+            .post("/api/property/searchdidnastan", { propertyName })
             .then(function(respond) {
               _this.id = 4;
-              _this.didnavis = respond.data;
+              _this.didnastandard = respond.data;
             });
         }
       }
 
-      // 选择框为option5(DiRNA(Pse-in-One))
+      // 选择框为option5(DiRNA-original)
       else if (nucleName == "option5") {
         //  且 搜索框为空
         if (propertyName == "") {
-          axios.post("/api/property/dirnapseinone").then(function(respond) {
+          axios.post("/api/property/dirnaoriginal").then(function(respond) {
             // console.log(respond)
-            _this.dirnapseinone = respond.data;
+            _this.dirnaoriginal = respond.data;
             _this.id = 5;
           });
         }
         //  且 搜索框不空
         else {
           axios
-            .post("/api/property/searchdirnapseinone", { propertyName })
+            .post("/api/property/searchdirnaori", { propertyName })
             .then(function(respond) {
               _this.id = 5;
-              _this.dirnapseinone = respond.data;
+              _this.dirnaoriginal = respond.data;
             });
         }
       }
-      // 选择框为option6(DiRNA(Ultrapse))
+      // 选择框为option6(DiRNA-standard)
       else if (nucleName == "option6") {
         //  且 搜索框为空
         if (propertyName == "") {
-          axios.post("/api/property/dirnaultrapse").then(function(respond) {
+          axios.post("/api/property/dirnastandard").then(function(respond) {
             // console.log(respond)
-            _this.dirnaultra = respond.data;
+            _this.dirnastandard = respond.data;
             _this.id = 6;
           });
         }
         //  且 搜索框不空
         else {
           axios
-            .post("/api/property/searchdirnaultrapse", { propertyName })
+            .post("/api/property/searchdirnastan", { propertyName })
             .then(function(respond) {
               _this.id = 6;
-              _this.dirnaultra = respond.data;
+              _this.dirnastandard = respond.data;
             });
         }
       }
-      // 选择框为option7(DiRNA(Visfeature))
+      // 选择框为option7(TriDNA-original)
       else if (nucleName == "option7") {
         //  且 搜索框为空
         if (propertyName == "") {
-          axios.post("/api/property/dirnavisfeature").then(function(respond) {
+          axios.post("/api/property/tridnaoriginal").then(function(respond) {
             // console.log(respond)
-            _this.dirnavis = respond.data;
+            _this.tridnaoriginal = respond.data;
             _this.id = 7;
           });
         }
         //  且 搜索框不空
         else {
           axios
-            .post("/api/property/searchdirnavisfeature", { propertyName })
+            .post("/api/property/searchtridnaori", { propertyName })
             .then(function(respond) {
               _this.id = 7;
-              _this.dirnavis = respond.data;
+              _this.tridnaoriginal = respond.data;
             });
         }
       }
 
-      // 选择框为option8(TriDNA(UltraPse))
+      // 选择框为option8(TriDNA-standard)
       else if (nucleName == "option8") {
         //  且 搜索框为空
         if (propertyName == "") {
-          axios.post("/api/property/tridnaultrapse").then(function(respond) {
+          axios.post("/api/property/tridnastandard").then(function(respond) {
             // console.log(respond)
-            _this.tridnaultra = respond.data;
+            _this.tridnastandard = respond.data;
             _this.id = 8;
           });
         }
         //  且 搜索框不空
         else {
           axios
-            .post("/api/property/searchtridnaultrapse", { propertyName })
+            .post("/api/property/searchtridnastan", { propertyName })
             .then(function(respond) {
               _this.id = 8;
-              _this.tridnaultra = respond.data;
-            });
-        }
-      }
-
-      // 选择框为option9(TriDNA(VisFeature))
-      else if (nucleName == "option9") {
-        //  且 搜索框为空
-        if (propertyName == "") {
-          axios.post("/api/property/tridnavisfeature").then(function(respond) {
-            // console.log(respond)
-            _this.tridnavis = respond.data;
-            _this.id = 9;
-          });
-        }
-        //  且 搜索框不空
-        else {
-          axios
-            .post("/api/property/searchtridnavisfeature", { propertyName })
-            .then(function(respond) {
-              _this.id = 9;
-              _this.tridnavis = respond.data;
+              _this.tridnastandard = respond.data;
             });
         }
       }
       // 选择框空，搜索框不空，从整个数据库搜索。。。考虑如何实现
       else if (nucleName == "" && propertyName != "") {
         axios
-          .post("/api/property/searchmono", { propertyName })
+          .post("/api/property/searchmonoori", { propertyName })
           .then(function(respond) {
-            _this.monodna = respond.data;
+            _this.monodnaoriginal = respond.data;
           });
         axios
-          .post("/api/property/searchdidnapseinone", { propertyName })
+          .post("/api/property/searchmonostan", { propertyName })
           .then(function(respond) {
-            _this.didnapseinone = respond.data;
+            _this.monodnastandard = respond.data;
           });
         axios
-          .post("/api/property/searchdidnaultrapse", { propertyName })
+          .post("/api/property/searchdidnaori", { propertyName })
           .then(function(respond) {
-            _this.didnaultra = respond.data;
+            _this.didnaoriginal = respond.data;
           });
         axios
-          .post("/api/property/searchdidnavisfeature", { propertyName })
+          .post("/api/property/searchdidnastan", { propertyName })
           .then(function(respond) {
-            _this.didnavis = respond.data;
+            _this.didnastandard = respond.data;
           });
         axios
-          .post("/api/property/searchdirnapseinone", { propertyName })
+          .post("/api/property/searchdirnaori", { propertyName })
           .then(function(respond) {
-            _this.dirnapseinone = respond.data;
+            _this.dirnaoriginal = respond.data;
           });
         axios
-          .post("/api/property/searchdirnaultrapse", { propertyName })
+          .post("/api/property/searchdirnastan", { propertyName })
           .then(function(respond) {
-            _this.dirnaultra = respond.data;
+            _this.dirnastandard = respond.data;
           });
         axios
-          .post("/api/property/searchdirnavisfeature", { propertyName })
+          .post("/api/property/searchtridnaori", { propertyName })
           .then(function(respond) {
-            _this.dirnavis = respond.data;
+            _this.tridnaoriginal = respond.data;
           });
         axios
-          .post("/api/property/searchtridnaultrapse", { propertyName })
+          .post("/api/property/searchtridnastan", { propertyName })
           .then(function(respond) {
-            _this.tridnaultra = respond.data;
-          });
-        axios
-          .post("/api/property/searchtridnavisfeature", { propertyName })
-          .then(function(respond) {
-            _this.tridnavis = respond.data;
+            _this.tridnastandard = respond.data;
             _this.id = 10;
           });
       }
@@ -1186,8 +1050,11 @@ export default {
 </script>
 
 <style>
+.el-header {
+  width: 100%;
+}
 .input-with-select {
-  width: 600px;
+  width: 60%;
 }
 .el-select {
   width: 120px;

@@ -4,7 +4,7 @@ module.exports = {
     host: "localhost", // 新建数据库连接时的 主机名或ID地址 内容
     user: "root", // 用户
     password: "664128", // 密码
-    database: "property", // 数据库名
+    database: "propertydb", // 数据库名
     port: "3306" // 端口
   }
 };

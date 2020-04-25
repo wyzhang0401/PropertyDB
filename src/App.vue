@@ -23,7 +23,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 0;
 }
 
 ul,
@@ -37,11 +37,11 @@ a {
   /* position: absolute;
   margin-top: 0; */
   width: 100%;
-  -webkit-box-shadow: 0px 0px 15px #ccc;
-  -moz-box-shadow: 0px 0px 15px #ccc;
-  -ms-box-shadow: 0px 0px 15px #ccc;
-  box-shadow: 0px 0px 15px #ccc;
-  background: #fff;
+  -webkit-box-shadow: 0px 0px 10px #ccc;
+  -moz-box-shadow: 0px 0px 10px #ccc;
+  -ms-box-shadow: 0px 0px 10px #ccc;
+  box-shadow: 0px 0px 10px #ccc;
+  background: #e6f0ef;
   padding: 20px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;

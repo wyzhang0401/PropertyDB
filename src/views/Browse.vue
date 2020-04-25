@@ -9,7 +9,7 @@ export default {
   data() {
     return {
       messg:
-        "介绍数据库,,,,这是一个关于伪核苷酸理化性质数值的数据库，包括了mononucleotide，dinucleotide，trinucleotide，"
+        "this is browse page, 参考文献在这里显示,弄个侧导航栏，点击能够跳转的那种"
     };
   }
 };

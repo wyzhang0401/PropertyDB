@@ -4,16 +4,18 @@ import Home from "../views/Home.vue";
 import About from "../views/About.vue";
 import Download from "../views/Download.vue";
 import Search from "../views/Search.vue";
+import Browse from "../views/Browse.vue";
+import Convert from "../views/Convert.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "*", //没有配置的路径
-    redirect: "/" //默认跳转首页
+    redirect: "/home" //默认跳转首页
   },
   {
-    path: "/",
+    path: "/home",
     name: "Home",
     component: Home
   },
@@ -28,14 +30,24 @@ const routes = [
     //import(/* webpackChunkName: "about" */ "../views/About.vue")
   },
   {
+    path: "/search",
+    name: "Search",
+    component: Search
+  },
+  {
     path: "/download",
     name: "Download",
     component: Download
   },
   {
-    path: "/search",
-    name: "Search",
-    component: Search
+    path: "/browse",
+    name: "Browse",
+    component: Browse
+  },
+  {
+    path: "/convert",
+    name: "Convert",
+    component: Convert
   },
   {
     path: "/manual.pdf",

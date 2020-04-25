@@ -21,11 +21,11 @@ var jsonWrite = function(res, ret) {
 };
 
 // 单元DNA测试显示接口
-router.post("/mono", (req, res) => {
-  var sql = $sql.property.selectmono;
+router.post("/monodnaoriginal", (req, res) => {
+  var sql = $sql.property.selectmonooriginal;
   connection.query(sql, function(err, result) {
     if (err) {
-      console.log("[SELECT FROM monodna ERROR]:", err.msg);
+      console.log("[SELECT FROM monodna-original ERROR]:", err.msg);
     }
     if (result) {
       // console.log(result)
@@ -35,12 +35,11 @@ router.post("/mono", (req, res) => {
   // connection.end()
 });
 
-router.post("/didnapseinone", (req, res) => {
-  var sql = $sql.property.selectdidnapseinone;
-  // var params = req.body
+router.post("/monodnastandard", (req, res) => {
+  var sql = $sql.property.selectmonostandard;
   connection.query(sql, function(err, result) {
     if (err) {
-      console.log("[SELECT FROM didna-pse-in-one ERROR]:", err.msg);
+      console.log("[SELECT FROM monodna-standard ERROR]:", err.msg);
     }
     if (result) {
       // console.log(result)
@@ -50,12 +49,12 @@ router.post("/didnapseinone", (req, res) => {
   // connection.end()
 });
 
-router.post("/didnaultrapse", (req, res) => {
-  var sql = $sql.property.selectdidnaultrapse;
+router.post("/didnaoriginal", (req, res) => {
+  var sql = $sql.property.selectdidnaoriginal;
   // var params = req.body
   connection.query(sql, function(err, result) {
     if (err) {
-      console.log("[SELECT FROM didna-ultrapse ERROR]:", err.msg);
+      console.log("[SELECT FROM didna-original ERROR]:", err.msg);
     }
     if (result) {
       // console.log(result)
@@ -65,12 +64,12 @@ router.post("/didnaultrapse", (req, res) => {
   // connection.end()
 });
 
-router.post("/didnavisfeature", (req, res) => {
-  var sql = $sql.property.selectdidnavis;
+router.post("/didnastandard", (req, res) => {
+  var sql = $sql.property.selectdidnastandard;
   // var params = req.body
   connection.query(sql, function(err, result) {
     if (err) {
-      console.log("[SELECT FROM didna-visfeature ERROR]:", err.msg);
+      console.log("[SELECT FROM didna-standard ERROR]:", err.msg);
     }
     if (result) {
       // console.log(result)
@@ -80,12 +79,12 @@ router.post("/didnavisfeature", (req, res) => {
   // connection.end()
 });
 
-router.post("/dirnapseinone", (req, res) => {
-  var sql = $sql.property.selectdirnapseinone;
+router.post("/dirnaoriginal", (req, res) => {
+  var sql = $sql.property.selectdirnaoriginal;
   // var params = req.body
   connection.query(sql, function(err, result) {
     if (err) {
-      console.log("[SELECT FROM dirna-pse-in-one ERROR]:", err.msg);
+      console.log("[SELECT FROM dirna-original ERROR]:", err.msg);
     }
     if (result) {
       // console.log(result)
@@ -95,12 +94,12 @@ router.post("/dirnapseinone", (req, res) => {
   // connection.end()
 });
 
-router.post("/dirnaultrapse", (req, res) => {
-  var sql = $sql.property.selectdirnaultrapse;
+router.post("/dirnastandard", (req, res) => {
+  var sql = $sql.property.selectdirnastandard;
   // var params = req.body
   connection.query(sql, function(err, result) {
     if (err) {
-      console.log("[SELECT FROM dirna-ultrapse ERROR]:", err.msg);
+      console.log("[SELECT FROM dirna-standard ERROR]:", err.msg);
     }
     if (result) {
       // console.log(result)
@@ -110,12 +109,12 @@ router.post("/dirnaultrapse", (req, res) => {
   // connection.end()
 });
 
-router.post("/dirnavisfeature", (req, res) => {
-  var sql = $sql.property.selectdirnavis;
+router.post("/tridnaoriginal", (req, res) => {
+  var sql = $sql.property.selecttridnaoriginal;
   // var params = req.body
   connection.query(sql, function(err, result) {
     if (err) {
-      console.log("[SELECT FROM dirna-visfeature ERROR]:", err.msg);
+      console.log("[SELECT FROM tridna-original ERROR]:", err.msg);
     }
     if (result) {
       // console.log(result)
@@ -125,27 +124,12 @@ router.post("/dirnavisfeature", (req, res) => {
   // connection.end()
 });
 
-router.post("/tridnaultrapse", (req, res) => {
-  var sql = $sql.property.selecttridnaultrapse;
+router.post("/tridnastandard", (req, res) => {
+  var sql = $sql.property.selecttridnastandard;
   // var params = req.body
   connection.query(sql, function(err, result) {
     if (err) {
-      console.log("[SELECT FROM tridna-ultrapse ERROR]:", err.msg);
-    }
-    if (result) {
-      // console.log(result)
-      jsonWrite(res, result);
-    }
-  });
-  // connection.end()
-});
-
-router.post("/tridnavisfeature", (req, res) => {
-  var sql = $sql.property.selecttridnavis;
-  // var params = req.body
-  connection.query(sql, function(err, result) {
-    if (err) {
-      console.log("[SELECT FROM tridna-visfeature ERROR]:", err.msg);
+      console.log("[SELECT FROM tridna-standard ERROR]:", err.msg);
     }
     if (result) {
       // console.log(result)
@@ -156,12 +140,12 @@ router.post("/tridnavisfeature", (req, res) => {
 });
 
 // 直接通过sql语句进行搜索查询
-router.post("/searchmono", (req, res) => {
-  var sql = $sql.property.searchmono;
+router.post("/searchmonoori", (req, res) => {
+  var sql = $sql.property.searchmonoori;
   var proname = req.body;
   connection.query(sql, [proname.propertyName], (err, result) => {
     if (err) {
-      console.log("[SEARCH FROM monodna ERROR]:", err.msg);
+      console.log("[SEARCH FROM monodna-original ERROR]:", err.msg);
     }
     if (result) {
       jsonWrite(res, result);
@@ -169,13 +153,12 @@ router.post("/searchmono", (req, res) => {
   });
 });
 
-router.post("/searchdidnapseinone", (req, res) => {
-  var sql = $sql.property.searchdidnapseinone;
-  var pro = req.body;
-  // console.log(pro.propertyName)
-  connection.query(sql, [pro.propertyName], (err, result) => {
+router.post("/searchmonostan", (req, res) => {
+  var sql = $sql.property.searchmonostan;
+  var proname = req.body;
+  connection.query(sql, [proname.propertyName], (err, result) => {
     if (err) {
-      console.log("[SEARCH FROM didna-pse-in-one ERROR]:", err.msg);
+      console.log("[SEARCH FROM monodna-standard ERROR]:", err.msg);
     }
     if (result) {
       jsonWrite(res, result);
@@ -183,13 +166,13 @@ router.post("/searchdidnapseinone", (req, res) => {
   });
 });
 
-router.post("/searchdidnaultrapse", (req, res) => {
-  var sql = $sql.property.searchdidnaultrapse;
+router.post("/searchdidnaori", (req, res) => {
+  var sql = $sql.property.searchdidnaori;
   var pro = req.body;
   // console.log(pro.propertyName)
   connection.query(sql, [pro.propertyName], (err, result) => {
     if (err) {
-      console.log("[SEARCH FROM didna-ultrapse ERROR]:", err.msg);
+      console.log("[SEARCH FROM didna-original ERROR]:", err.msg);
     }
     if (result) {
       jsonWrite(res, result);
@@ -197,13 +180,13 @@ router.post("/searchdidnaultrapse", (req, res) => {
   });
 });
 
-router.post("/searchdidnavisfeature", (req, res) => {
-  var sql = $sql.property.searchdidnavis;
+router.post("/searchdidnastan", (req, res) => {
+  var sql = $sql.property.searchdidnastan;
   var pro = req.body;
   // console.log(pro.propertyName)
   connection.query(sql, [pro.propertyName], (err, result) => {
     if (err) {
-      console.log("[SEARCH FROM didna-visfeature ERROR]:", err.msg);
+      console.log("[SEARCH FROM didna-standard ERROR]:", err.msg);
     }
     if (result) {
       jsonWrite(res, result);
@@ -211,13 +194,13 @@ router.post("/searchdidnavisfeature", (req, res) => {
   });
 });
 
-router.post("/searchdirnapseinone", (req, res) => {
-  var sql = $sql.property.searchdirnapseinone;
+router.post("/searchdirnaori", (req, res) => {
+  var sql = $sql.property.searchdirnaori;
   var pro = req.body;
   // console.log(pro.propertyName)
   connection.query(sql, [pro.propertyName], (err, result) => {
     if (err) {
-      console.log("[SEARCH FROM dirna-pse-in-one ERROR]:", err.msg);
+      console.log("[SEARCH FROM dirna-original ERROR]:", err.msg);
     }
     if (result) {
       jsonWrite(res, result);
@@ -225,13 +208,13 @@ router.post("/searchdirnapseinone", (req, res) => {
   });
 });
 
-router.post("/searchdirnaultrapse", (req, res) => {
-  var sql = $sql.property.searchdirnaultrapse;
+router.post("/searchdirnastan", (req, res) => {
+  var sql = $sql.property.searchdirnastan;
   var pro = req.body;
   // console.log(pro.propertyName)
   connection.query(sql, [pro.propertyName], (err, result) => {
     if (err) {
-      console.log("[SEARCH FROM dirna-ultrapse ERROR]:", err.msg);
+      console.log("[SEARCH FROM dirna-standard ERROR]:", err.msg);
     }
     if (result) {
       jsonWrite(res, result);
@@ -239,13 +222,13 @@ router.post("/searchdirnaultrapse", (req, res) => {
   });
 });
 
-router.post("/searchdirnavisfeature", (req, res) => {
-  var sql = $sql.property.searchdirnavis;
+router.post("/searchtridnaori", (req, res) => {
+  var sql = $sql.property.searchtridnaori;
   var pro = req.body;
   // console.log(pro.propertyName)
   connection.query(sql, [pro.propertyName], (err, result) => {
     if (err) {
-      console.log("[SEARCH FROM dirna-visfeature ERROR]:", err.msg);
+      console.log("[SEARCH FROM tridna-original ERROR]:", err.msg);
     }
     if (result) {
       jsonWrite(res, result);
@@ -253,27 +236,13 @@ router.post("/searchdirnavisfeature", (req, res) => {
   });
 });
 
-router.post("/searchtridnaultrapse", (req, res) => {
-  var sql = $sql.property.searchtridnaultrapse;
+router.post("/searchtridnastan", (req, res) => {
+  var sql = $sql.property.searchtridnastan;
   var pro = req.body;
   // console.log(pro.propertyName)
   connection.query(sql, [pro.propertyName], (err, result) => {
     if (err) {
-      console.log("[SEARCH FROM tridna-ultrapse ERROR]:", err.msg);
-    }
-    if (result) {
-      jsonWrite(res, result);
-    }
-  });
-});
-
-router.post("/searchtridnavisfeature", (req, res) => {
-  var sql = $sql.property.searchtridnavis;
-  var pro = req.body;
-  // console.log(pro.propertyName)
-  connection.query(sql, [pro.propertyName], (err, result) => {
-    if (err) {
-      console.log("[SEARCH FROM tridna-visfeature ERROR]:", err.msg);
+      console.log("[SEARCH FROM tridna-standard ERROR]:", err.msg);
     }
     if (result) {
       jsonWrite(res, result);

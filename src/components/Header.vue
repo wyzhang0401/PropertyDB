@@ -1,24 +1,25 @@
 <template>
-  <el-header class="header">
-    <el-row class="header-content" type="flex" align="middle">
-      <el-col :span="6" class="title">
+  <nav>
+    <ul class="topnav" id="dropdownClick">
+      <li class="title">
         <h2>{{ title }}</h2>
-      </el-col>
-      <el-col :span="12">
-        <ul class="el-menu">
-          <li
-            :index="item.id"
-            v-for="item in menus"
-            v-on:click="toggle(item.id)"
-            :class="{ 'is-active': item.id == checkId }"
-            :key="item.id"
-          >
-            <router-link :to="item.url">{{ item.name }}</router-link>
-          </li>
-        </ul>
-      </el-col>
-    </el-row>
-  </el-header>
+      </li>
+      <li
+        :index="item.id"
+        v-for="item in menus"
+        v-on:click="toggle(item.id)"
+        :class="{ 'is-active': item.id == checkId }"
+        :key="item.id"
+      >
+        <router-link :to="item.url">
+          {{ item.name }}
+        </router-link>
+      </li>
+      <li class="dropdownIcon">
+        <a href="javascript:void(0);" @click="dropdownMenu()">&#9776;</a>
+      </li>
+    </ul>
+  </nav>
 </template>
 
 <script>
@@ -30,7 +31,7 @@ export default {
       menus: [
         {
           id: 1,
-          url: "/",
+          url: "/home",
           name: "Home"
         },
         {
@@ -45,11 +46,21 @@ export default {
         },
         {
           id: 4,
+          url: "/browse",
+          name: "Browse"
+        },
+        {
+          id: 5,
+          url: "/convert",
+          name: "Convert"
+        },
+        {
+          id: 6,
           url: "/manual.pdf",
           name: "Manual"
         },
         {
-          id: 5,
+          id: 7,
           url: "/about",
           name: "About"
         }
@@ -60,6 +71,14 @@ export default {
   methods: {
     toggle(val) {
       this.checkId = val;
+    },
+    dropdownMenu() {
+      let x = document.getElementById("dropdownClick");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
     }
     /* 路由跳转的方法：*/
     // goToRouter () {
@@ -77,20 +96,26 @@ export default {
         let linkName = this.$route.name;
         // console.log(this.checkId)
         switch (linkName) {
-          case "homeLink":
+          case "Home":
             this.checkId = 1;
             break;
-          case "searchLink":
+          case "Search":
             this.checkId = 2;
             break;
-          case "downloadLink":
+          case "Download":
             this.checkId = 3;
             break;
-          case "manualLink":
+          case "Browse":
             this.checkId = 4;
             break;
-          case "aboutLink":
+          case "Convert":
             this.checkId = 5;
+            break;
+          case "Manual":
+            this.checkId = 6;
+            break;
+          case "About":
+            this.checkId = 7;
             break;
         }
       }
@@ -99,51 +124,81 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
-.header {
+<style scope>
+body {
+  margin: 0;
+  line-height: 1;
+}
+
+nav {
+  display: block;
   width: 100%;
-  height: 60px;
-  background: #99cccc;
-  color: #696969;
-  position: fixed;
-  top: 0;
-  z-index: 100;
-  .header-content {
-    max-width: 1200px;
-    height: 100%;
-    margin: 0 auto;
-    padding: 0 20px;
-    .title {
-      text-align: center;
-    }
-    ul.el-menu {
-      background: transparent;
-      border: 0;
-      li {
-        display: inline-block;
-        line-height: 60px;
-        margin: 0 10px;
-        a {
-          display: block;
-          width: inherit;
-          height: 100%;
-          color: #696969;
-          font-size: 16px;
-          padding: 0 20px;
-        }
-      }
-      li:hover {
-        background: #54b3af;
-        a {
-          color: #fff;
-        }
-      }
-      .is-active {
-        a {
-          color: #fff;
-        }
-      }
-    }
+  margin: 0;
+}
+
+ul.topnav {
+  background-color: rgb(250, 250, 250);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+ul.topnav li {
+  float: left;
+  color: rgb(115, 200, 200);
+}
+
+ul.topnav li.title {
+  padding: 0 100px 0 40px;
+}
+
+ul.topnav li a {
+  display: block;
+  min-height: 20px;
+  padding: 20px;
+  color: rgb(115, 200, 200);
+  font-weight: bold;
+}
+
+ul.topnav li a:hover {
+  background: lightgray;
+}
+
+ul.topnav li.dropdownIcon {
+  display: none;
+}
+
+ul.topnav .is-active a {
+  background: lightgray;
+}
+
+@media screen and (max-width: 700px) {
+  ul.topnav li:not(:nth-child(1)) {
+    display: none;
+  }
+
+  ul.topnav li.dropdownIcon {
+    display: block;
+    float: right;
+  }
+
+  ul.topnav.responsive {
+    position: relative;
+  }
+
+  ul.topnav.responsive li {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  ul.topnav.responsive li:nth-child(2) {
+    border-top: 1px solid;
+    border-top-color: gray;
+  }
+  ul.topnav.responsive li.dropdownIcon {
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 }
 </style>
