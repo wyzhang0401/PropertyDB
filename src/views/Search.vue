@@ -3,7 +3,7 @@
     <el-header>
       <!--element-ui的复合型输入框 可通过 slot 来指定在 input 中前置或者后置内容。 -->
       <el-input
-        placeholder="physicochemical property name"
+        placeholder="physicochemical property name(use * or % to do a fuzzy search)"
         v-model="inputContent"
         clearable
         @keyup.enter.native="Search"
@@ -41,7 +41,7 @@
       <!-- 折叠面板 -->
       <el-collapse v-model="activeNames">
         <el-collapse-item
-          v-if="id === 1 || id === 10"
+          v-if="id === 1 || (id === 10 && monodnaoriginal != '')"
           title="mononucleotide-DNA-original"
           name="1"
         >
@@ -77,16 +77,35 @@
               label="PropertyName"
               width="120"
             ></el-table-column>
-            <el-table-column
-              prop="ReferID"
-              label="ReferID"
-              width="100"
-            ></el-table-column>
-            <el-table-column
-              prop="PubMedID"
-              label="PubMedID"
-              width="100"
-            ></el-table-column>
+            <el-table-column prop="ReferID" label="ReferID" width="100">
+              <template slot-scope="scope">
+                <a
+                  v-if="scope.row.ReferID == 'REID0029'"
+                  :href="reid0029"
+                  target="_black"
+                >
+                  {{ scope.row.ReferID }}
+                </a>
+                <a
+                  v-else-if="scope.row.ReferID == 'REID0030'"
+                  :href="reid0030"
+                  target="_black"
+                >
+                  {{ scope.row.ReferID }}
+                </a>
+                <a v-else :href="url + scope.row.PubMedID" target="_black">
+                  {{ scope.row.ReferID }}
+                </a>
+              </template>
+            </el-table-column>
+            <!-- 为表中的PMID加链接 -->
+            <el-table-column prop="PubMedID" label="PubMedID" width="100">
+              <template slot-scope="scope">
+                <a :href="url + scope.row.PubMedID" target="_black">
+                  {{ scope.row.PubMedID }}
+                </a>
+              </template>
+            </el-table-column>
             <el-table-column prop="A" label="A"></el-table-column>
             <el-table-column prop="C" label="C"></el-table-column>
             <el-table-column prop="G" label="G"></el-table-column>
@@ -95,15 +114,15 @@
         </el-collapse-item>
 
         <el-collapse-item
-          v-if="id === 2 || id === 10"
-          title="mononucleotide-DNA-standardized"
+          v-if="id === 2 || (id === 10 && monodnastandard != '')"
+          title="mononucleotide-DNA-standard"
           name="2"
         >
-          <!-- 对应表 monodna-standardized -->
+          <!-- 对应表 monodna-standard -->
           <div class="tabletitle">
             <el-row>
               <el-col :span="6" :offset="8">
-                mononucleotide-DNA-standardized
+                mononucleotide-DNA-standard
               </el-col>
               <el-col :span="1" v-if="id === 2"
                 ><el-button
@@ -131,16 +150,34 @@
               label="PropertyName"
               width="120"
             ></el-table-column>
-            <el-table-column
-              prop="ReferID"
-              label="ReferID"
-              width="100"
-            ></el-table-column>
-            <el-table-column
-              prop="PubMedID"
-              label="PubMedID"
-              width="100"
-            ></el-table-column>
+            <el-table-column prop="ReferID" label="ReferID" width="100">
+              <template slot-scope="scope">
+                <a
+                  v-if="scope.row.ReferID == 'REID0029'"
+                  :href="reid0029"
+                  target="_black"
+                >
+                  {{ scope.row.ReferID }}
+                </a>
+                <a
+                  v-else-if="scope.row.ReferID == 'REID0030'"
+                  :href="reid0030"
+                  target="_black"
+                >
+                  {{ scope.row.ReferID }}
+                </a>
+                <a v-else :href="url + scope.row.PubMedID" target="_black">
+                  {{ scope.row.ReferID }}
+                </a>
+              </template>
+            </el-table-column>
+            <el-table-column prop="PubMedID" label="PubMedID" width="100">
+              <template slot-scope="scope">
+                <a :href="url + scope.row.PubMedID" target="_black">
+                  {{ scope.row.PubMedID }}
+                </a>
+              </template>
+            </el-table-column>
             <el-table-column prop="A" label="A"></el-table-column>
             <el-table-column prop="C" label="C"></el-table-column>
             <el-table-column prop="G" label="G"></el-table-column>
@@ -149,7 +186,7 @@
         </el-collapse-item>
 
         <el-collapse-item
-          v-if="id === 3 || id === 10"
+          v-if="id === 3 || (id === 10 && didnaoriginal != '')"
           title="dinucleotide-DNA-original"
           name="3"
         >
@@ -186,48 +223,55 @@
               label="PropertyName"
               width="120"
             ></el-table-column>
+            <el-table-column prop="ReferID" label="ReferID" width="100">
+              <template slot-scope="scope">
+                <a
+                  v-if="scope.row.ReferID == 'REID0029'"
+                  :href="reid0029"
+                  target="_black"
+                >
+                  {{ scope.row.ReferID }}
+                </a>
+                <a
+                  v-else-if="scope.row.ReferID == 'REID0030'"
+                  :href="reid0030"
+                  target="_black"
+                >
+                  {{ scope.row.ReferID }}
+                </a>
+                <a v-else :href="url + scope.row.PubMedID" target="_black">
+                  {{ scope.row.ReferID }}
+                </a>
+              </template>
+            </el-table-column>
+            <el-table-column prop="PubMedID" label="PubMedID" width="100">
+              <template slot-scope="scope">
+                <a :href="url + scope.row.PubMedID" target="_black">
+                  {{ scope.row.PubMedID }}
+                </a>
+              </template>
+            </el-table-column>
+            <!-- AA AC AG AT...的数据 -->
             <el-table-column
-              prop="ReferID"
-              label="ReferID"
-              width="100"
-            ></el-table-column>
-            <el-table-column
-              prop="PubMedID"
-              label="PubMedID"
-              width="100"
-            ></el-table-column>
-            <el-table-column prop="AA" label="AA"></el-table-column>
-            <el-table-column prop="AG" label="AG"></el-table-column>
-            <el-table-column prop="AC" label="AC"></el-table-column>
-            <el-table-column prop="AT" label="AT"></el-table-column>
-
-            <el-table-column prop="GA" label="GA"></el-table-column>
-            <el-table-column prop="GG" label="GG"></el-table-column>
-            <el-table-column prop="GC" label="GC"></el-table-column>
-            <el-table-column prop="GT" label="GT"></el-table-column>
-
-            <el-table-column prop="CA" label="CA"></el-table-column>
-            <el-table-column prop="CG" label="CG"></el-table-column>
-            <el-table-column prop="CC" label="CC"></el-table-column>
-            <el-table-column prop="CT" label="CT"></el-table-column>
-
-            <el-table-column prop="TA" label="TA"></el-table-column>
-            <el-table-column prop="TG" label="TG"></el-table-column>
-            <el-table-column prop="TC" label="TC"></el-table-column>
-            <el-table-column prop="TT" label="TT"></el-table-column>
+              v-for="(item, index) in didna"
+              :label="item"
+              :prop="item"
+              :key="index"
+            >
+            </el-table-column>
           </el-table>
         </el-collapse-item>
 
         <el-collapse-item
-          v-if="id === 4 || id === 10"
-          title="dinucleotide-DNA-standardized"
+          v-if="id === 4 || (id === 10 && didnastandard != '')"
+          title="dinucleotide-DNA-standard"
           name="4"
         >
-          <!-- 对应表 didna-standardized -->
+          <!-- 对应表 didna-standard -->
           <div class="tabletitle">
             <el-row>
               <el-col :span="4" :offset="10">
-                dinucleotide-DNA-standardized
+                dinucleotide-DNA-standard
               </el-col>
               <el-col :span="1" v-if="id === 4"
                 ><el-button
@@ -256,40 +300,47 @@
               label="PropertyName"
               width="120"
             ></el-table-column>
+            <el-table-column prop="ReferID" label="ReferID" width="100">
+              <template slot-scope="scope">
+                <a
+                  v-if="scope.row.ReferID == 'REID0029'"
+                  :href="reid0029"
+                  target="_black"
+                >
+                  {{ scope.row.ReferID }}
+                </a>
+                <a
+                  v-else-if="scope.row.ReferID == 'REID0030'"
+                  :href="reid0030"
+                  target="_black"
+                >
+                  {{ scope.row.ReferID }}
+                </a>
+                <a v-else :href="url + scope.row.PubMedID" target="_black">
+                  {{ scope.row.ReferID }}
+                </a>
+              </template>
+            </el-table-column>
+            <el-table-column prop="PubMedID" label="PubMedID" width="100">
+              <template slot-scope="scope">
+                <a :href="url + scope.row.PubMedID" target="_black">
+                  {{ scope.row.PubMedID }}
+                </a>
+              </template>
+            </el-table-column>
+            <!-- 数据 -->
             <el-table-column
-              prop="ReferID"
-              label="ReferID"
-              width="100"
-            ></el-table-column>
-            <el-table-column
-              prop="PubMedID"
-              label="PubMedID"
-              width="100"
-            ></el-table-column>
-            <el-table-column prop="AA" label="AA"></el-table-column>
-            <el-table-column prop="AG" label="AG"></el-table-column>
-            <el-table-column prop="AC" label="AC"></el-table-column>
-            <el-table-column prop="AT" label="AT"></el-table-column>
-
-            <el-table-column prop="GA" label="GA"></el-table-column>
-            <el-table-column prop="GG" label="GG"></el-table-column>
-            <el-table-column prop="GC" label="GC"></el-table-column>
-            <el-table-column prop="GT" label="GT"></el-table-column>
-
-            <el-table-column prop="CA" label="CA"></el-table-column>
-            <el-table-column prop="CG" label="CG"></el-table-column>
-            <el-table-column prop="CC" label="CC"></el-table-column>
-            <el-table-column prop="CT" label="CT"></el-table-column>
-
-            <el-table-column prop="TA" label="TA"></el-table-column>
-            <el-table-column prop="TG" label="TG"></el-table-column>
-            <el-table-column prop="TC" label="TC"></el-table-column>
-            <el-table-column prop="TT" label="TT"></el-table-column>
+              v-for="(item, index) in didna"
+              :label="item"
+              :prop="item"
+              :key="index"
+            >
+            </el-table-column>
           </el-table>
         </el-collapse-item>
 
         <el-collapse-item
-          v-if="id === 5 || id === 10"
+          v-if="id === 5 || (id === 10 && dirnaoriginal != '')"
           title="dinucleotide-RNA-original"
           name="5"
         >
@@ -324,48 +375,54 @@
               label="PropertyName"
               width="120"
             ></el-table-column>
+            <el-table-column prop="ReferID" label="ReferID" width="100">
+              <template slot-scope="scope">
+                <a
+                  v-if="scope.row.ReferID == 'REID0029'"
+                  :href="reid0029"
+                  target="_black"
+                >
+                  {{ scope.row.ReferID }}
+                </a>
+                <a
+                  v-else-if="scope.row.ReferID == 'REID0030'"
+                  :href="reid0030"
+                  target="_black"
+                >
+                  {{ scope.row.ReferID }}
+                </a>
+                <a v-else :href="url + scope.row.PubMedID" target="_black">
+                  {{ scope.row.ReferID }}
+                </a>
+              </template>
+            </el-table-column>
+            <el-table-column prop="PubMedID" label="PubMedID" width="100">
+              <template slot-scope="scope">
+                <a :href="url + scope.row.PubMedID" target="_black">
+                  {{ scope.row.PubMedID }}
+                </a>
+              </template>
+            </el-table-column>
             <el-table-column
-              prop="ReferID"
-              label="ReferID"
-              width="100"
-            ></el-table-column>
-            <el-table-column
-              prop="PubMedID"
-              label="PubMedID"
-              width="100"
-            ></el-table-column>
-            <el-table-column prop="AA" label="AA"></el-table-column>
-            <el-table-column prop="AG" label="AG"></el-table-column>
-            <el-table-column prop="AC" label="AC"></el-table-column>
-            <el-table-column prop="AU" label="AU"></el-table-column>
-
-            <el-table-column prop="GA" label="GA"></el-table-column>
-            <el-table-column prop="GG" label="GG"></el-table-column>
-            <el-table-column prop="GC" label="GC"></el-table-column>
-            <el-table-column prop="GU" label="GU"></el-table-column>
-
-            <el-table-column prop="CA" label="CA"></el-table-column>
-            <el-table-column prop="CG" label="CG"></el-table-column>
-            <el-table-column prop="CC" label="CC"></el-table-column>
-            <el-table-column prop="CU" label="CU"></el-table-column>
-
-            <el-table-column prop="UA" label="UA"></el-table-column>
-            <el-table-column prop="UG" label="UG"></el-table-column>
-            <el-table-column prop="UC" label="UC"></el-table-column>
-            <el-table-column prop="UU" label="UU"></el-table-column>
+              v-for="(item, index) in dirna"
+              :label="item"
+              :prop="item"
+              :key="index"
+            >
+            </el-table-column>
           </el-table>
         </el-collapse-item>
 
         <el-collapse-item
-          v-if="id === 6 || id === 10"
-          title="dinucleotide-RNA-standardized"
+          v-if="id === 6 || (id === 10 && dirnastandard != '')"
+          title="dinucleotide-RNA-standard"
           name="6"
         >
-          <!-- 对应表 dirna-standardized -->
+          <!-- 对应表 dirna-standard -->
           <div class="tabletitle">
             <el-row>
               <el-col :span="4" :offset="10">
-                dinucleotide-RNA-standardized
+                dinucleotide-RNA-standard
               </el-col>
               <el-col :span="1" v-if="id === 6"
                 ><el-button
@@ -394,40 +451,46 @@
               label="PropertyName"
               width="120"
             ></el-table-column>
+            <el-table-column prop="ReferID" label="ReferID" width="100">
+              <template slot-scope="scope">
+                <a
+                  v-if="scope.row.ReferID == 'REID0029'"
+                  :href="reid0029"
+                  target="_black"
+                >
+                  {{ scope.row.ReferID }}
+                </a>
+                <a
+                  v-else-if="scope.row.ReferID == 'REID0030'"
+                  :href="reid0030"
+                  target="_black"
+                >
+                  {{ scope.row.ReferID }}
+                </a>
+                <a v-else :href="url + scope.row.PubMedID" target="_black">
+                  {{ scope.row.ReferID }}
+                </a>
+              </template>
+            </el-table-column>
+            <el-table-column prop="PubMedID" label="PubMedID" width="100">
+              <template slot-scope="scope">
+                <a :href="url + scope.row.PubMedID" target="_black">
+                  {{ scope.row.PubMedID }}
+                </a>
+              </template>
+            </el-table-column>
             <el-table-column
-              prop="ReferID"
-              label="ReferID"
-              width="100"
-            ></el-table-column>
-            <el-table-column
-              prop="PubMedID"
-              label="PubMedID"
-              width="100"
-            ></el-table-column>
-            <el-table-column prop="AA" label="AA"></el-table-column>
-            <el-table-column prop="AG" label="AG"></el-table-column>
-            <el-table-column prop="AC" label="AC"></el-table-column>
-            <el-table-column prop="AU" label="AU"></el-table-column>
-
-            <el-table-column prop="GA" label="GA"></el-table-column>
-            <el-table-column prop="GG" label="GG"></el-table-column>
-            <el-table-column prop="GC" label="GC"></el-table-column>
-            <el-table-column prop="GU" label="GU"></el-table-column>
-
-            <el-table-column prop="CA" label="CA"></el-table-column>
-            <el-table-column prop="CG" label="CG"></el-table-column>
-            <el-table-column prop="CC" label="CC"></el-table-column>
-            <el-table-column prop="CU" label="CU"></el-table-column>
-
-            <el-table-column prop="UA" label="UA"></el-table-column>
-            <el-table-column prop="UG" label="UG"></el-table-column>
-            <el-table-column prop="UC" label="UC"></el-table-column>
-            <el-table-column prop="UU" label="UU"></el-table-column>
+              v-for="(item, index) in dirna"
+              :label="item"
+              :prop="item"
+              :key="index"
+            >
+            </el-table-column>
           </el-table>
         </el-collapse-item>
 
         <el-collapse-item
-          v-if="id === 7 || id === 10"
+          v-if="id === 7 || (id === 10 && tridnaoriginal != '')"
           title="trinucleotide-DNA-original"
           name="7"
         >
@@ -464,96 +527,54 @@
               label="PropertyName"
               width="120"
             ></el-table-column>
+            <el-table-column prop="ReferID" label="ReferID" width="100">
+              <template slot-scope="scope">
+                <a
+                  v-if="scope.row.ReferID == 'REID0029'"
+                  :href="reid0029"
+                  target="_black"
+                >
+                  {{ scope.row.ReferID }}
+                </a>
+                <a
+                  v-else-if="scope.row.ReferID == 'REID0030'"
+                  :href="reid0030"
+                  target="_black"
+                >
+                  {{ scope.row.ReferID }}
+                </a>
+                <a v-else :href="url + scope.row.PubMedID" target="_black">
+                  {{ scope.row.ReferID }}
+                </a>
+              </template>
+            </el-table-column>
+            <el-table-column prop="PubMedID" label="PubMedID" width="100">
+              <template slot-scope="scope">
+                <a :href="url + scope.row.PubMedID" target="_black">
+                  {{ scope.row.PubMedID }}
+                </a>
+              </template>
+            </el-table-column>
             <el-table-column
-              prop="ReferID"
-              label="ReferID"
-              width="100"
-            ></el-table-column>
-            <el-table-column
-              prop="PubMedID"
-              label="PubMedID"
-              width="100"
-            ></el-table-column>
-            <el-table-column prop="AAA" label="AAA"></el-table-column>
-            <el-table-column prop="AAG" label="AAG"></el-table-column>
-            <el-table-column prop="AAC" label="AAC"></el-table-column>
-            <el-table-column prop="AAT" label="AAT"></el-table-column>
-            <el-table-column prop="AGA" label="AGA"></el-table-column>
-            <el-table-column prop="AGG" label="AGG"></el-table-column>
-            <el-table-column prop="AGC" label="AGC"></el-table-column>
-            <el-table-column prop="AGT" label="AGT"></el-table-column>
-            <el-table-column prop="ACA" label="ACA"></el-table-column>
-            <el-table-column prop="ACG" label="ACG"></el-table-column>
-            <el-table-column prop="ACC" label="ACC"></el-table-column>
-            <el-table-column prop="ACT" label="ACT"></el-table-column>
-            <el-table-column prop="ATA" label="ATA"></el-table-column>
-            <el-table-column prop="ATG" label="ATG"></el-table-column>
-            <el-table-column prop="ATC" label="ATC"></el-table-column>
-            <el-table-column prop="ATT" label="ATT"></el-table-column>
-
-            <el-table-column prop="GAA" label="GAA"></el-table-column>
-            <el-table-column prop="GAG" label="GAG"></el-table-column>
-            <el-table-column prop="GAC" label="GAC"></el-table-column>
-            <el-table-column prop="GAT" label="GAT"></el-table-column>
-            <el-table-column prop="GGA" label="GGA"></el-table-column>
-            <el-table-column prop="GGG" label="GGG"></el-table-column>
-            <el-table-column prop="GGC" label="GGC"></el-table-column>
-            <el-table-column prop="GGT" label="GGT"></el-table-column>
-            <el-table-column prop="GCA" label="GCA"></el-table-column>
-            <el-table-column prop="GCG" label="GCG"></el-table-column>
-            <el-table-column prop="GCC" label="GCC"></el-table-column>
-            <el-table-column prop="GCT" label="GCT"></el-table-column>
-            <el-table-column prop="GTA" label="GTA"></el-table-column>
-            <el-table-column prop="GTG" label="GTG"></el-table-column>
-            <el-table-column prop="GTC" label="GTC"></el-table-column>
-            <el-table-column prop="GTT" label="GTT"></el-table-column>
-
-            <el-table-column prop="CAA" label="CAA"></el-table-column>
-            <el-table-column prop="CAG" label="CAG"></el-table-column>
-            <el-table-column prop="CAC" label="CAC"></el-table-column>
-            <el-table-column prop="CAT" label="CAT"></el-table-column>
-            <el-table-column prop="CGA" label="CGA"></el-table-column>
-            <el-table-column prop="CGG" label="CGG"></el-table-column>
-            <el-table-column prop="CGC" label="CGC"></el-table-column>
-            <el-table-column prop="CGT" label="CGT"></el-table-column>
-            <el-table-column prop="CCA" label="CCA"></el-table-column>
-            <el-table-column prop="CCG" label="CCG"></el-table-column>
-            <el-table-column prop="CCC" label="CCC"></el-table-column>
-            <el-table-column prop="CCT" label="CCT"></el-table-column>
-            <el-table-column prop="CTA" label="CTA"></el-table-column>
-            <el-table-column prop="CTG" label="CTG"></el-table-column>
-            <el-table-column prop="CTC" label="CTC"></el-table-column>
-            <el-table-column prop="CTT" label="CTT"></el-table-column>
-
-            <el-table-column prop="TAA" label="TAA"></el-table-column>
-            <el-table-column prop="TAG" label="TAG"></el-table-column>
-            <el-table-column prop="TAC" label="TAC"></el-table-column>
-            <el-table-column prop="TAT" label="TAT"></el-table-column>
-            <el-table-column prop="TGA" label="TGA"></el-table-column>
-            <el-table-column prop="TGG" label="TGG"></el-table-column>
-            <el-table-column prop="TGC" label="TGC"></el-table-column>
-            <el-table-column prop="TGT" label="TGT"></el-table-column>
-            <el-table-column prop="TCA" label="TCA"></el-table-column>
-            <el-table-column prop="TCG" label="TCG"></el-table-column>
-            <el-table-column prop="TCC" label="TCC"></el-table-column>
-            <el-table-column prop="TCT" label="TCT"></el-table-column>
-            <el-table-column prop="TTA" label="TTA"></el-table-column>
-            <el-table-column prop="TTG" label="TTG"></el-table-column>
-            <el-table-column prop="TTC" label="TTC"></el-table-column>
-            <el-table-column prop="TTT" label="TTT"></el-table-column>
+              v-for="(item, index) in tridna"
+              :label="item"
+              :prop="item"
+              :key="index"
+            >
+            </el-table-column>
           </el-table>
         </el-collapse-item>
 
         <el-collapse-item
-          v-if="id === 8 || id === 10"
-          title="trinucleotide-DNA-standardized"
+          v-if="id === 8 || (id === 10 && tridnastandard != '')"
+          title="trinucleotide-DNA-standard"
           name="8"
         >
-          <!-- 对应表 tridna-standardized -->
+          <!-- 对应表 tridna-standard -->
           <div class="tabletitle">
             <el-row>
               <el-col :span="6" :offset="8">
-                trinucleotide-DNA-standardized
+                trinucleotide-DNA-standard
               </el-col>
               <el-col :span="1" v-if="id === 8"
                 ><el-button
@@ -566,7 +587,7 @@
               ></el-col>
             </el-row>
           </div>
-
+          <!-- height 固定表头 -->
           <el-table
             id="myTable8"
             :data="tridnastandard"
@@ -582,83 +603,41 @@
               label="PropertyName"
               width="120"
             ></el-table-column>
+            <el-table-column prop="ReferID" label="ReferID" width="100">
+              <template slot-scope="scope">
+                <a
+                  v-if="scope.row.ReferID == 'REID0029'"
+                  :href="reid0029"
+                  target="_black"
+                >
+                  {{ scope.row.ReferID }}
+                </a>
+                <a
+                  v-else-if="scope.row.ReferID == 'REID0030'"
+                  :href="reid0030"
+                  target="_black"
+                >
+                  {{ scope.row.ReferID }}
+                </a>
+                <a v-else :href="url + scope.row.PubMedID" target="_black">
+                  {{ scope.row.ReferID }}
+                </a>
+              </template>
+            </el-table-column>
+            <el-table-column prop="PubMedID" label="PubMedID" width="100">
+              <template slot-scope="scope">
+                <a :href="url + scope.row.PubMedID" target="_black">
+                  {{ scope.row.PubMedID }}
+                </a>
+              </template>
+            </el-table-column>
             <el-table-column
-              prop="ReferID"
-              label="ReferID"
-              width="100"
-            ></el-table-column>
-            <el-table-column
-              prop="PubMedID"
-              label="PubMedID"
-              width="100"
-            ></el-table-column>
-            <el-table-column prop="AAA" label="AAA"></el-table-column>
-            <el-table-column prop="AAG" label="AAG"></el-table-column>
-            <el-table-column prop="AAC" label="AAC"></el-table-column>
-            <el-table-column prop="AAT" label="AAT"></el-table-column>
-            <el-table-column prop="AGA" label="AGA"></el-table-column>
-            <el-table-column prop="AGG" label="AGG"></el-table-column>
-            <el-table-column prop="AGC" label="AGC"></el-table-column>
-            <el-table-column prop="AGT" label="AGT"></el-table-column>
-            <el-table-column prop="ACA" label="ACA"></el-table-column>
-            <el-table-column prop="ACG" label="ACG"></el-table-column>
-            <el-table-column prop="ACC" label="ACC"></el-table-column>
-            <el-table-column prop="ACT" label="ACT"></el-table-column>
-            <el-table-column prop="ATA" label="ATA"></el-table-column>
-            <el-table-column prop="ATG" label="ATG"></el-table-column>
-            <el-table-column prop="ATC" label="ATC"></el-table-column>
-            <el-table-column prop="ATT" label="ATT"></el-table-column>
-
-            <el-table-column prop="GAA" label="GAA"></el-table-column>
-            <el-table-column prop="GAG" label="GAG"></el-table-column>
-            <el-table-column prop="GAC" label="GAC"></el-table-column>
-            <el-table-column prop="GAT" label="GAT"></el-table-column>
-            <el-table-column prop="GGA" label="GGA"></el-table-column>
-            <el-table-column prop="GGG" label="GGG"></el-table-column>
-            <el-table-column prop="GGC" label="GGC"></el-table-column>
-            <el-table-column prop="GGT" label="GGT"></el-table-column>
-            <el-table-column prop="GCA" label="GCA"></el-table-column>
-            <el-table-column prop="GCG" label="GCG"></el-table-column>
-            <el-table-column prop="GCC" label="GCC"></el-table-column>
-            <el-table-column prop="GCT" label="GCT"></el-table-column>
-            <el-table-column prop="GTA" label="GTA"></el-table-column>
-            <el-table-column prop="GTG" label="GTG"></el-table-column>
-            <el-table-column prop="GTC" label="GTC"></el-table-column>
-            <el-table-column prop="GTT" label="GTT"></el-table-column>
-
-            <el-table-column prop="CAA" label="CAA"></el-table-column>
-            <el-table-column prop="CAG" label="CAG"></el-table-column>
-            <el-table-column prop="CAC" label="CAC"></el-table-column>
-            <el-table-column prop="CAT" label="CAT"></el-table-column>
-            <el-table-column prop="CGA" label="CGA"></el-table-column>
-            <el-table-column prop="CGG" label="CGG"></el-table-column>
-            <el-table-column prop="CGC" label="CGC"></el-table-column>
-            <el-table-column prop="CGT" label="CGT"></el-table-column>
-            <el-table-column prop="CCA" label="CCA"></el-table-column>
-            <el-table-column prop="CCG" label="CCG"></el-table-column>
-            <el-table-column prop="CCC" label="CCC"></el-table-column>
-            <el-table-column prop="CCT" label="CCT"></el-table-column>
-            <el-table-column prop="CTA" label="CTA"></el-table-column>
-            <el-table-column prop="CTG" label="CTG"></el-table-column>
-            <el-table-column prop="CTC" label="CTC"></el-table-column>
-            <el-table-column prop="CTT" label="CTT"></el-table-column>
-
-            <el-table-column prop="TAA" label="TAA"></el-table-column>
-            <el-table-column prop="TAG" label="TAG"></el-table-column>
-            <el-table-column prop="TAC" label="TAC"></el-table-column>
-            <el-table-column prop="TAT" label="TAT"></el-table-column>
-            <el-table-column prop="TGA" label="TGA"></el-table-column>
-            <el-table-column prop="TGG" label="TGG"></el-table-column>
-            <el-table-column prop="TGC" label="TGC"></el-table-column>
-            <el-table-column prop="TGT" label="TGT"></el-table-column>
-            <el-table-column prop="TCA" label="TCA"></el-table-column>
-            <el-table-column prop="TCG" label="TCG"></el-table-column>
-            <el-table-column prop="TCC" label="TCC"></el-table-column>
-            <el-table-column prop="TCT" label="TCT"></el-table-column>
-            <el-table-column prop="TTA" label="TTA"></el-table-column>
-            <el-table-column prop="TTG" label="TTG"></el-table-column>
-            <el-table-column prop="TTC" label="TTC"></el-table-column>
-            <el-table-column prop="TTT" label="TTT"></el-table-column>
+              v-for="(item, index) in tridna"
+              :label="item"
+              :prop="item"
+              :key="index"
+            >
+            </el-table-column>
           </el-table>
         </el-collapse-item>
       </el-collapse>
@@ -683,6 +662,111 @@ export default {
       dirnastandard: "",
       tridnaoriginal: "",
       tridnastandard: "",
+      didna: [
+        "AA",
+        "AC",
+        "AG",
+        "AT",
+        "CA",
+        "CC",
+        "CG",
+        "CT",
+        "GA",
+        "GC",
+        "GG",
+        "GT",
+        "TA",
+        "TC",
+        "TG",
+        "TT"
+      ],
+      dirna: [
+        "AA",
+        "AC",
+        "AG",
+        "AU",
+        "CA",
+        "CC",
+        "CG",
+        "CU",
+        "GA",
+        "GC",
+        "GG",
+        "GU",
+        "UA",
+        "UC",
+        "UG",
+        "UU"
+      ],
+      tridna: [
+        "AAA",
+        "AAC",
+        "AAG",
+        "AAT",
+        "ACA",
+        "ACC",
+        "ACG",
+        "ACT",
+        "AGA",
+        "AGC",
+        "AGG",
+        "AGT",
+        "ATA",
+        "ATC",
+        "ATG",
+        "ATT",
+
+        "CAA",
+        "CAC",
+        "CAG",
+        "CAT",
+        "CCA",
+        "CCC",
+        "CCG",
+        "CCT",
+        "CGA",
+        "CGC",
+        "CGG",
+        "CGT",
+        "CTA",
+        "CTC",
+        "CTG",
+        "CTT",
+
+        "GAA",
+        "GAC",
+        "GAG",
+        "GAT",
+        "GCA",
+        "GCC",
+        "GCG",
+        "GCT",
+        "GGA",
+        "GGC",
+        "GGG",
+        "GGT",
+        "GTA",
+        "GTC",
+        "GTG",
+        "GTT",
+
+        "TAC",
+        "TAG",
+        "TAT",
+        "TCA",
+        "TAA",
+        "TCC",
+        "TCG",
+        "TCT",
+        "TGA",
+        "TGC",
+        "TGG",
+        "TGT",
+        "TTA",
+        "TTC",
+        "TTG",
+        "TTT"
+      ],
       id: 0,
       activeNames: [],
       options: [
@@ -695,7 +779,7 @@ export default {
             },
             {
               value: "option2",
-              label: "standardized values"
+              label: "standard values"
             }
           ]
         },
@@ -708,7 +792,7 @@ export default {
             },
             {
               value: "option4",
-              label: "standardized values"
+              label: "standard values"
             }
           ]
         },
@@ -721,7 +805,7 @@ export default {
             },
             {
               value: "option6",
-              label: "standardized values"
+              label: "standard values"
             }
           ]
         },
@@ -734,13 +818,16 @@ export default {
             },
             {
               value: "option8",
-              label: "standardized values"
+              label: "standard values"
             }
           ]
         }
       ],
       nucleName: "",
-      inputContent: ""
+      inputContent: "",
+      url: "https://www.ncbi.nlm.nih.gov/pubmed/?term=",
+      reid0029: "https://doi.org/10.1002/bip.1981.360200513",
+      reid0030: "https://doi.org/10.1038/npg.els.0003122"
     };
   },
   methods: {
@@ -760,13 +847,13 @@ export default {
       let fileName = ".xlsx";
       let file = [
         "mononucleotide-DNA-original",
-        "mononucleotide-DNA-standardized",
+        "mononucleotide-DNA-standard",
         "dinucleotide-DNA-original",
-        "dinucleotide-DNA-standardized",
+        "dinucleotide-DNA-standard",
         "dinucleotide-RNA-original",
-        "dinucleotide-RNA-standardized",
+        "dinucleotide-RNA-standard",
         "trinucleotide-DNA-original",
-        "trinucleotide-DNA-standardized"
+        "trinucleotide-DNA-standard"
       ];
       myTable = myTable + String(id);
       fileName = file[id - 1] + fileName;
@@ -803,6 +890,9 @@ export default {
     Search() {
       // 将输入的理化性质大写均转为小写(但是sql好像不区分大小写)
       var propertyName = this.inputContent.toLowerCase();
+      // console.log(propertyName);
+      propertyName = sqlencode(propertyName);
+      // console.log(propertyName);
       // 选择框内容
       var nucleName = this.nucleName;
       var _this = this;
@@ -835,12 +925,13 @@ export default {
           _this.id = 10;
         });
       }
+
       // 选择框为option1(MonoDNA-original)
       else if (nucleName == "option1") {
         //  且 搜索框为空
         if (propertyName == "") {
           axios.post("/api/property/monodnaoriginal").then(function(respond) {
-            // console.log(respond);
+            // console.log(respond.data);
             _this.monodnaoriginal = respond.data;
             // console.log(respond.data[0].PropertyName)
             _this.id = 1;
@@ -878,6 +969,7 @@ export default {
             });
         }
       }
+
       // 选择框为option3(DiDNA-original)
       else if (nucleName == "option3") {
         //  且 搜索框为空
@@ -898,6 +990,7 @@ export default {
             });
         }
       }
+
       // 选择框为option4(DiDNA-standard)
       else if (nucleName == "option4") {
         //  且 搜索框为空
@@ -939,6 +1032,7 @@ export default {
             });
         }
       }
+
       // 选择框为option6(DiRNA-standard)
       else if (nucleName == "option6") {
         //  且 搜索框为空
@@ -959,6 +1053,7 @@ export default {
             });
         }
       }
+
       // 选择框为option7(TriDNA-original)
       else if (nucleName == "option7") {
         //  且 搜索框为空
@@ -1000,7 +1095,8 @@ export default {
             });
         }
       }
-      // 选择框空，搜索框不空，从整个数据库搜索。。。考虑如何实现
+
+      // 选择框空，搜索框不空，从整个数据库搜索
       else if (nucleName == "" && propertyName != "") {
         axios
           .post("/api/property/searchmonoori", { propertyName })
@@ -1046,6 +1142,13 @@ export default {
       }
     }
   }
+};
+
+// 将输入的理化性质的名称中的通配符_修改为普通的下划线字符
+var sqlencode = function(str) {
+  var sql = str.replace(/_/g, "\\_");
+  sql = sql.replace(/\*/g, "%"); // 用户可以输入带*的模糊查询
+  return sql;
 };
 </script>
 
