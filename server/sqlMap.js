@@ -27,7 +27,23 @@ var sqlMap = {
     searchtridnaori:
       'select * from `tridna-original` where PropertyName like "%"?"%"',
     searchtridnastan:
-      'select * from `tridna-standard` where PropertyName like "%"?"%"'
+      'select * from `tridna-standard` where PropertyName like "%"?"%"',
+
+    // 按参考文献分类的表
+    cluster_reference: "select * from cluster_refer",
+
+    //  按元分类
+    monoproperty:
+      "select PropertyName from `monodna-original` order by PropertyName",
+    didnaproperty:
+      "select PropertyName from `didna-original` order by PropertyName",
+    dirnaproperty:
+      "select PropertyName from `dirna-original` order by PropertyName",
+    triproperty:
+      "select PropertyName from `tridna-original` order by PropertyName",
+
+    // 查询参考文献
+    references: "select * from pubmedid order by ReferID"
   }
 };
 

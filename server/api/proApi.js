@@ -250,4 +250,77 @@ router.post("/searchtridnastan", (req, res) => {
   });
 });
 
+router.post("/cluster_reference", (req, res) => {
+  // var params = req.body
+  var sql = $sql.property.cluster_reference;
+  connection.query(sql, (err, result) => {
+    if (err) {
+      console.log("[SEARCH FROM cluster_reference ERROR]:", err.msg);
+    }
+    if (result) {
+      jsonWrite(res, result);
+    }
+  });
+});
+
+router.post("/getproperty_mono", (req, res) => {
+  var sql = $sql.property.monoproperty;
+  connection.query(sql, (err, result) => {
+    if (err) {
+      console.log("[get propertyname from mono error]:", err.msg);
+    }
+    if (result) {
+      jsonWrite(res, result);
+    }
+  });
+});
+
+router.post("/getproperty_didna", (req, res) => {
+  var sql = $sql.property.didnaproperty;
+  connection.query(sql, (err, result) => {
+    if (err) {
+      console.log("[get propertyname from didna error]:", err.msg);
+    }
+    if (result) {
+      jsonWrite(res, result);
+    }
+  });
+});
+
+router.post("/getproperty_dirna", (req, res) => {
+  var sql = $sql.property.dirnaproperty;
+  connection.query(sql, (err, result) => {
+    if (err) {
+      console.log("[get propertyname from dirna error]:", err.msg);
+    }
+    if (result) {
+      jsonWrite(res, result);
+    }
+  });
+});
+
+router.post("/getproperty_tri", (req, res) => {
+  var sql = $sql.property.triproperty;
+  connection.query(sql, (err, result) => {
+    if (err) {
+      console.log("[get propertyname from tridna error]:", err.msg);
+    }
+    if (result) {
+      jsonWrite(res, result);
+    }
+  });
+});
+
+// 参考文献
+router.post("/references", (req, res) => {
+  var sql = $sql.property.references;
+  connection.query(sql, (err, result) => {
+    if (err) {
+      console.log("[get references error]:", err.msg);
+    }
+    if (result) {
+      jsonWrite(res, result);
+    }
+  });
+});
 module.exports = router;

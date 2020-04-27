@@ -2,6 +2,7 @@
   <div id="app">
     <app-header></app-header>
     <router-view />
+    <el-backtop></el-backtop>
   </div>
 </template>
 
@@ -22,7 +23,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #202122;
   margin: 0;
 }
 
