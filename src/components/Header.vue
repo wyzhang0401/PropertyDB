@@ -7,8 +7,8 @@
       <li
         :index="item.id"
         v-for="item in menus"
-        v-on:click="toggle(item.id)"
-        :class="{ 'is-active': item.id == checkId }"
+        v-on:click="setname(item.name)"
+        :class="{ 'is-active': item.name == checkName }"
         :key="item.id"
       >
         <router-link :to="item.url">
@@ -65,13 +65,14 @@ export default {
           name: "About"
         }
       ],
-      checkId: null
+      checkName: this.$route.name
     };
   },
   methods: {
-    toggle(val) {
-      this.checkId = val;
+    setname(val) {
+      this.checkName = val;
     },
+    // 响应式设计导航栏
     dropdownMenu() {
       let x = document.getElementById("dropdownClick");
       if (x.className === "topnav") {
@@ -94,30 +95,9 @@ export default {
     $route: {
       handler() {
         let linkName = this.$route.name;
-        // console.log(this.checkId)
-        switch (linkName) {
-          case "Home":
-            this.checkId = 1;
-            break;
-          case "Search":
-            this.checkId = 2;
-            break;
-          case "Download":
-            this.checkId = 3;
-            break;
-          case "Browse":
-            this.checkId = 4;
-            break;
-          case "Convert":
-            this.checkId = 5;
-            break;
-          case "Manual":
-            this.checkId = 6;
-            break;
-          case "About":
-            this.checkId = 7;
-            break;
-        }
+        // console.log(linkName);
+        this.checkName = linkName;
+        // console.log(this.checkName);
       }
     }
   }
