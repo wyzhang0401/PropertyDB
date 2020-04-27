@@ -14,6 +14,7 @@
             <div class="download-content">
               <ul>
                 <li v-for="item in original" :key="item.id">
+                  <!-- 文件在本地public中 -->
                   <a :href="'/data/original/' + item.url" download="">
                     {{ item.file }}
                   </a>
@@ -111,7 +112,7 @@ export default {
 }
 .grid-content {
   background: #e5e9f2;
-  border-radius: 4px;
+  border-radius: 60px;
   height: 300px;
 }
 .download-title {
