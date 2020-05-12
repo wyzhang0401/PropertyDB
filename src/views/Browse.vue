@@ -2,6 +2,7 @@
   <el-container
     style="background-color: #e6f0ef; height: 500px; border: 1px solid #eee"
   >
+    <!-- 侧面导航栏 -->
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
       <el-menu :default-openeds="['1', '3']">
         <el-submenu index="1">
@@ -68,6 +69,7 @@
 
     <el-container>
       <el-main class="browseBody">
+        <!-- 按参考文献将理化性质分类 -->
         <div class="cluster-reference">
           <h3><a name="cluster1"></a>Clustering according to references</h3>
           <p>
@@ -134,6 +136,7 @@
             </el-table-column>
           </el-table>
         </div>
+        <!-- 按kmer将理化性质分类 -->
         <div class="cluster-k">
           <h3><a name="cluster2"></a>Clustering according to k-tuple</h3>
           <p>
@@ -153,6 +156,7 @@
                   </tr>
                   <tr v-else v-for="row in tuple.rows" :key="row">
                     <td v-for="col in 5" :key="col">
+                      <!-- 有些情况下，可能会提示越界，因为最后一行不够5列 -->
                       {{ tuple.property[(row - 1) * 5 + col - 1] }}
                     </td>
                   </tr>
@@ -624,7 +628,7 @@
             </el-table-column>
           </el-table>
         </div>
-
+        <!-- 显示参考文献 -->
         <div>
           <h3><a name="reference"></a>References</h3>
           <table border="2" cellpadding="10" style="width: 100%" bgcolor="#eee">
@@ -925,6 +929,7 @@ export default {
 //   }
 //   return cluster;
 // };
+// 根据参考文献聚类是用的外连接语句，表中的理化性质有重复的，所以要去重并排序
 var dataChange = function(data, length) {
   // console.log(data);
   var tmp = data.length;

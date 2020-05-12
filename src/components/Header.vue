@@ -104,11 +104,11 @@ export default {
 };
 </script>
 
-<style scope>
-body {
+<style scoped>
+/* body {
   margin: 0;
   line-height: 1;
-}
+} */
 
 nav {
   display: block;

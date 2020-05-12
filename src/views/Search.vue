@@ -14,6 +14,7 @@
           slot="prepend"
           clearable
           placeholder="nucleotides"
+          class="select"
         >
           <el-option-group
             v-for="group in options"
@@ -1152,7 +1153,7 @@ var sqlencode = function(str) {
 };
 </script>
 
-<style>
+<style scoped>
 .el-header {
   width: 100%;
 }

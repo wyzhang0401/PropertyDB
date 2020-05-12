@@ -2,6 +2,7 @@
   <div id="app">
     <app-header></app-header>
     <router-view />
+    <!-- 滑动页面，可以有返回最顶端按钮 -->
     <el-backtop></el-backtop>
   </div>
 </template>
