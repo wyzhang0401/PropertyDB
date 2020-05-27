@@ -1,6 +1,10 @@
 .DS_Store
 node_modules
 /dist
+/dev
+/test
+/pre
+/prod
 
 # local env files
 .env.local
@@ -20,4 +24,5 @@ yarn-error.log*
 *.sln
 *.sw?
 
+# database config
 .base.conf.js

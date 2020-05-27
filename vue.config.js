@@ -5,8 +5,9 @@ module.exports = {
   // 基本路径
   publicPath: "./",
   // 输出文件目录
-  outputDir: "dist",
-  assetsDir: "assets", // 静态资源目录 (js, css, img, fonts)
+  // outputDir: "dist",
+  outputDir: process.env.outputDir,
+  assetsDir: "assets", // 静态资源目录 (js, css, img, fonts)的（相对于outputDir的）目录
   // indexPath: "index.html",
   // eslint-loader 是否在保存的时候检查
   lintOnSave: true,
@@ -28,8 +29,10 @@ module.exports = {
     if (debug) {
       // 开发环境配置
       config.devtool = "cheap-module-eval-source-map";
+      config.mode = "development";
     } else {
       // 生产环境配置
+      config.mode = "production";
     }
     Object.assign(config, {
       // 开发生产共同配置

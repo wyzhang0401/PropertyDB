@@ -5,6 +5,10 @@
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
+    "build-dev": "vue-cli-service build --mode dev",
+    "build-test": "vue-cli-service build --mode test",
+    "build-pre": "vue-cli-service build --mode pre",
+    "build-publish": "vue-cli-service build && vue-cli-service build --mode prod",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -13,6 +17,7 @@
     "element-ui": "^2.13.1",
     "file-saver": "^2.0.2",
     "less-loader": "^5.0.0",
+    "nodemon": "^2.0.3",
     "vue": "^2.6.11",
     "vue-pdf": "^4.0.8",
     "vue-router": "^3.1.6",

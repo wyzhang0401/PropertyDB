@@ -5,11 +5,12 @@
       <el-form
         ref="form"
         :model="form"
+        :rules="rules"
         label-width="200px"
         label-position="left"
         label-suffix=":"
       >
-        <el-form-item label="Kmer">
+        <el-form-item label="Kmer" prop="kmer">
           <el-radio-group v-model="form.kmer" @change="changeSequence">
             <el-radio label="mono">mononucleotide</el-radio>
             <el-radio label="di">dinucleotide</el-radio>
@@ -17,14 +18,14 @@
           </el-radio-group>
         </el-form-item>
 
-        <el-form-item label="sequence type">
+        <el-form-item label="sequence type" prop="nucleic">
           <el-radio-group v-model="form.nucleic">
             <el-radio label="dna">DNA</el-radio>
             <el-radio label="rna" :disabled="disable">RNA</el-radio>
           </el-radio-group>
         </el-form-item>
 
-        <el-form-item label="value type">
+        <el-form-item label="value type" prop="value">
           <el-radio-group v-model="form.value">
             <el-radio label="original">original</el-radio>
             <el-radio label="standard">standard</el-radio>
@@ -116,14 +117,7 @@
                       type="button"
                       value="getValue"
                       style="width: 80px"
-                      @click="
-                        getValue(
-                          form.properties.property,
-                          form.inputSequence,
-                          form.propertyid,
-                          form.kmer
-                        )
-                      "
+                      @click="getValue('form')"
                     />
                   </td>
                 </tr>
@@ -166,6 +160,25 @@ export default {
         propertyid: "", // 选中的理化特性的id
         inputSequence: "",
         outputValue: ""
+      },
+      rules: {
+        kmer: [
+          { required: true, message: "Please choose kmer", trigger: "change" }
+        ],
+        nucleic: [
+          {
+            required: true,
+            message: "Please choose nucleic",
+            trigger: "change"
+          }
+        ],
+        value: [
+          {
+            required: true,
+            message: "Please choose a kind of value",
+            trigger: "change"
+          }
+        ]
       },
       disable: false
     };
@@ -217,18 +230,14 @@ export default {
         this.form.nucleic = "dna";
       } else {
         this.disable = false;
-        this.form.nucleic = "";
+        // this.form.nucleic = "";
       }
     },
     getExample() {
       // 要根据DNA,RNA的不同，设定不同的例子
       var _this = this;
       var formData = _this.form;
-      if (
-        formData.kmer == "" ||
-        formData.nucleic == "" ||
-        formData.value == ""
-      ) {
+      if (formData.nucleic == "") {
         alert("Please choose parameters first!");
       } else if (formData.nucleic == "dna") {
         _this.form.inputSequence = "ATCGAATCGGCTAGTCCAAT";
@@ -236,50 +245,66 @@ export default {
         _this.form.inputSequence = "AUCGAAUCGGCUAGUCCAAU";
       }
     },
-    getValue(property, inputSequence, propertyid, kmer) {
-      // var _this = this;
-      let i = 0;
-      let tmpProperty = {};
-      if (property == "" || inputSequence == "" || propertyid == "") {
-        alert("Please choose parameters first!");
-      }
-      // console.log(property);
-      // 截取propertyid对应的对象
-      for (i = 0; i < property.length; i++) {
-        if (property[i].ID == propertyid) {
-          tmpProperty = property[i];
-          break;
-        }
-      }
-      // console.log(tmpProperty);
-      // 在选出的对象中将带值的部分提取出来
-      // eslint-disable-next-line no-unused-vars
-      let { ID, PropertyName, ReferID, PubMedID, ...tmp } = tmpProperty;
-      // console.log(tmp);
+    getValue(formName) {
+      // console.log(formName.properties.property);
+      let _this = this;
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          let property = _this.form.properties.property;
+          // console.log(property);
+          let inputSequence = _this.form.inputSequence;
+          let propertyid = _this.form.propertyid;
+          let kmer = _this.form.kmer;
+          let i = 0;
+          let tmpProperty = {};
+          if (inputSequence == "" || propertyid == "") {
+            alert(
+              "Please choose a physicochemical property and input nucleotide sequence first!"
+            );
+            return false;
+          }
+          // console.log(property);
+          // 截取propertyid对应的对象
+          for (i = 0; i < property.length; i++) {
+            if (property[i].ID == propertyid) {
+              tmpProperty = property[i];
+              break;
+            }
+          }
+          // console.log(tmpProperty);
+          // 在选出的对象中将带值的部分提取出来
+          // eslint-disable-next-line no-unused-vars
+          let { ID, PropertyName, ReferID, PubMedID, ...tmp } = tmpProperty;
+          // console.log(tmp);
 
-      // 输入的序列按照kmer进行拆分成kmers
-      let j = 0;
-      let k = 1;
-      let kmers = []; // 拆分的kmers
-      let value = []; // kmers对应的理化性质propertyid的值
-      let output = "";
-      if (kmer == "di") k = 2;
-      else if (kmer == "tri") k = 3;
-      for (j = 0; j <= inputSequence.length - k; j++) {
-        let mer = inputSequence.substring(j, j + k);
-        kmers.push(mer);
-        value.push(tmp[mer]);
-      }
-      // console.log(kmers);
-      // console.log(value);
-      output =
-        "kmers:\n" +
-        kmers.join(" ") +
-        "\n" +
-        this.form.value +
-        " values:\n" +
-        value.join(" "); // 数组转换为以空格分隔的字符串
-      this.form.outputValue = output;
+          // 输入的序列按照kmer进行拆分成kmers
+          let j = 0;
+          let k = 1;
+          let kmers = []; // 拆分的kmers
+          let value = []; // kmers对应的理化性质propertyid的值
+          let output = "";
+          if (kmer == "di") k = 2;
+          else if (kmer == "tri") k = 3;
+          for (j = 0; j <= inputSequence.length - k; j++) {
+            let mer = inputSequence.substring(j, j + k);
+            kmers.push(mer);
+            value.push(tmp[mer]);
+          }
+          // console.log(kmers);
+          // console.log(value);
+          output =
+            "kmers:\n" +
+            kmers.join(" ") +
+            "\n" +
+            _this.form.value +
+            " values:\n" +
+            value.join(" "); // 数组转换为以空格分隔的字符串
+          _this.form.outputValue = output;
+        } else {
+          alert("Please choose parameters first!");
+          return false;
+        }
+      });
     }
   }
 };

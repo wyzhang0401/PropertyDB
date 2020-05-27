@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
 
+const history = require("connect-history-api-fallback");
 let server = http.createServer(app);
 
 // 采用设置所有均可访问的方法解决跨域问题
@@ -20,6 +21,9 @@ app.all("*", function(req, res, next) {
   // 让options尝试请求快速结束
   else next();
 });
+
+//  当路由模式为history时防止空白页
+app.use(history());
 
 // 获取req.body参数的处理
 app.use(bodyParser.json());
