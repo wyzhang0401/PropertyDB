@@ -144,7 +144,37 @@
             according to the k-tuple nucleotides (mononucleotide-DNA,
             dinucleotide-DNA, dinucleotide-RNA, trinucleotide-DNA).
           </p>
-          <table border="2" cellpadding="10" style="width: 100%" bgcolor="#eee">
+          <!-- 需修改表格风格 -->
+          <el-table
+            :data="ktuple"
+            border
+            stripe
+            :show-header="status"
+            empty-text="cannot find"
+            style="width: 100%"
+          >
+            <el-table-column prop="name" width="150"> </el-table-column>
+            <el-table-column>
+              <template slot-scope="props">
+                <!-- {{ props.row.property }} -->
+                <el-table
+                  :data="props.row.propertyname"
+                  border
+                  stripe
+                  :show-header="status"
+                  empty-text="cannot find"
+                >
+                  <el-table-column prop="col0"></el-table-column>
+                  <el-table-column prop="col1"></el-table-column>
+                  <el-table-column prop="col2"></el-table-column>
+                  <el-table-column prop="col3"></el-table-column>
+                  <el-table-column prop="col4"></el-table-column>
+                </el-table>
+              </template>
+            </el-table-column>
+          </el-table>
+
+          <!-- <table border="2" cellpadding="10" style="width: 100%" bgcolor="#eee">
             <tr v-for="tuple in ktuple" :key="tuple.name">
               <td width="150">{{ tuple.name }}</td>
               <td>
@@ -155,17 +185,18 @@
                     </td>
                   </tr>
                   <tr v-else v-for="row in tuple.rows" :key="row">
-                    <td v-for="col in 5" :key="col">
-                      <!-- 有些情况下，可能会提示越界，因为最后一行不够5列 -->
-                      {{ tuple.property[(row - 1) * 5 + col - 1] }}
+                    <td v-for="col in 5" :key="col">-->
+          <!-- 有些情况下，可能会提示越界，因为最后一行不够5列 -->
+          <!-- {{ tuple.property[(row - 1) * 5 + col - 1] }}
                     </td>
                   </tr>
                 </table>
               </td>
             </tr>
-          </table>
+          </table> -->
         </div>
 
+        <!-- Mononucleotide-DNA-Original -->
         <div>
           <h3><a name="browse1"></a>Mononucleotide-DNA-Original</h3>
           <el-table
@@ -217,6 +248,7 @@
           </el-table>
         </div>
 
+        <!-- Dinucleotide-DNA-Original -->
         <div>
           <h3><a name="browse2-1"></a>Dinucleotide-DNA-Original</h3>
           <el-table
@@ -278,6 +310,7 @@
           </el-table>
         </div>
 
+        <!-- Dinucleotide-RNA-Original -->
         <div>
           <h3><a name="browse2-2"></a>Dinucleotide-RNA-Original</h3>
           <el-table
@@ -338,6 +371,7 @@
           </el-table>
         </div>
 
+        <!-- Trinucleotide-DNA-Original -->
         <div>
           <h3><a name="browse3"></a>Trinucleotide-DNA-Original</h3>
           <el-table
@@ -398,6 +432,7 @@
           </el-table>
         </div>
 
+        <!-- Mononucleotide-DNA-Standard -->
         <div>
           <h3><a name="browse4"></a>Mononucleotide-DNA-Standard</h3>
           <el-table
@@ -448,6 +483,7 @@
           </el-table>
         </div>
 
+        <!-- Dinucleotide-DNA-Standard -->
         <div>
           <h3><a name="browse5-1"></a>Dinucleotide-DNA-Standard</h3>
           <el-table
@@ -509,6 +545,7 @@
           </el-table>
         </div>
 
+        <!-- Dinucleotide-RNA-Standard -->
         <div>
           <h3><a name="browse5-2"></a>Dinucleotide-RNA-Standard</h3>
           <el-table
@@ -569,6 +606,7 @@
           </el-table>
         </div>
 
+        <!-- Trinucleotide-DNA-Standard -->
         <div>
           <h3><a name="browse6"></a>Trinucleotide-DNA-Standard</h3>
           <el-table
@@ -628,8 +666,51 @@
             </el-table-column>
           </el-table>
         </div>
+
         <!-- 显示参考文献 -->
         <div>
+          <h3><a name="reference"></a>References</h3>
+          <el-table
+            :data="references"
+            height="400"
+            empty-text="cannot find"
+            border
+            stripe
+            style="width: 100%"
+          >
+            <el-table-column prop="ReferID" label="ReferID" width="100">
+              <template slot-scope="scope">
+                <a
+                  v-if="scope.row.ReferID == 'REID0029'"
+                  :href="reid0029"
+                  target="_black"
+                >
+                  {{ scope.row.ReferID }}
+                </a>
+                <a
+                  v-else-if="scope.row.ReferID == 'REID0030'"
+                  :href="reid0030"
+                  target="_black"
+                >
+                  {{ scope.row.ReferID }}
+                </a>
+                <a v-else :href="url + scope.row.PubMedID" target="_black">
+                  {{ scope.row.ReferID }}
+                </a>
+              </template>
+            </el-table-column>
+            <el-table-column prop="PubMedID" label="PubMedID" width="100">
+              <template slot-scope="scope">
+                <a :href="url + scope.row.PubMedID" target="_black">
+                  {{ scope.row.PubMedID }}
+                </a>
+              </template>
+            </el-table-column>
+            <el-table-column prop="Reference" label="Reference">
+            </el-table-column>
+          </el-table>
+        </div>
+        <!-- <div>
           <h3><a name="reference"></a>References</h3>
           <table border="2" cellpadding="10" style="width: 100%" bgcolor="#eee">
             <tr>
@@ -667,7 +748,8 @@
               </td>
             </tr>
           </table>
-        </div>
+        </div> -->
+
         <!-- 返回顶部按钮 -->
         <el-backtop target=".browseBody">
           <div
@@ -702,37 +784,55 @@ export default {
       dinucleotide_RNA: "",
       trinucleotide: ""
     };
+    // k-tuple分类子表数据
+    // const list = {
+    //   col1: "",
+    //   col2: "",
+    //   col3: "",
+    //   col4: "",
+    //   col5: ""
+    // };
     return {
       url: "https://www.ncbi.nlm.nih.gov/pubmed/?term=",
       reid0029: "https://doi.org/10.1002/bip.1981.360200513",
       reid0030: "https://doi.org/10.1038/npg.els.0003122",
       clusterReData: Array(47).fill(item),
+      status: false,
       ktuple: [
         {
           name: "mononucleotide",
-          property: "",
+          property: [],
           length: 0,
-          rows: 0
+          rows: 0,
+          // k-tuple分类子表数据
+          propertyname: []
         },
         {
           name: "dinucleotide-DNA",
-          property: "",
+          property: [],
           length: 0,
-          rows: 0
+          rows: 0,
+          // k-tuple分类子表数据
+          propertyname: []
         },
         {
           name: "dinucleotide-RNA",
-          property: "",
+          property: [],
           length: 0,
-          rows: 0
+          rows: 0,
+          // k-tuple分类子表数据
+          propertyname: []
         },
         {
           name: "trinucleotide",
-          property: "",
+          property: [],
           length: 0,
-          rows: 0
+          rows: 0,
+          // k-tuple分类子表数据
+          propertyname: []
         }
       ],
+      ktuples: [],
       // 值显示需要的数据
       monodnaoriginal: [],
       monodnastandard: [],
@@ -861,29 +961,54 @@ export default {
 
     // 根据k-tuple聚类
     axios.post("/api/property/getproperty_mono").then(respond => {
-      _this.ktuple[0].property = object2array(respond.data);
+      // _this.ktuple[0].property = object2array(respond.data);
+      _this.ktuple[0].property = respond.data;
       _this.ktuple[0].length = _this.ktuple[0].property.length;
-      _this.ktuple[0].rows = Math.ceil(_this.ktuple[0].property.length / 5);
+      _this.ktuple[0].rows = Math.ceil(_this.ktuple[0].property.length / 5); // 5列
+      _this.ktuple[0].propertyname = object2object(
+        _this.ktuple[0].property,
+        _this.ktuple[0].length,
+        _this.ktuple[0].rows
+      );
     });
     axios.post("/api/property/getproperty_didna").then(respond => {
-      _this.ktuple[1].property = object2array(respond.data);
+      // _this.ktuple[1].property = object2array(respond.data);
+      _this.ktuple[1].property = respond.data;
       _this.ktuple[1].length = _this.ktuple[1].property.length;
       _this.ktuple[1].rows = Math.ceil(_this.ktuple[1].property.length / 5);
+      _this.ktuple[1].propertyname = object2object(
+        _this.ktuple[1].property,
+        _this.ktuple[1].length,
+        _this.ktuple[1].rows
+      );
     });
     axios.post("/api/property/getproperty_dirna").then(respond => {
-      _this.ktuple[2].property = object2array(respond.data);
+      // _this.ktuple[2].property = object2array(respond.data);
+      _this.ktuple[2].property = respond.data;
       _this.ktuple[2].length = _this.ktuple[2].property.length;
       _this.ktuple[2].rows = Math.ceil(_this.ktuple[2].property.length / 5);
+      _this.ktuple[2].propertyname = object2object(
+        _this.ktuple[2].property,
+        _this.ktuple[2].length,
+        _this.ktuple[2].rows
+      );
     });
     axios.post("/api/property/getproperty_tri").then(respond => {
-      _this.ktuple[3].property = object2array(respond.data);
+      // _this.ktuple[3].property = object2array(respond.data);
+      _this.ktuple[3].property = respond.data;
       _this.ktuple[3].length = _this.ktuple[3].property.length;
       _this.ktuple[3].rows = Math.ceil(_this.ktuple[3].property.length / 5);
+      _this.ktuple[3].propertyname = object2object(
+        _this.ktuple[3].property,
+        _this.ktuple[3].length,
+        _this.ktuple[3].rows
+      );
     });
 
     // 查询参考文献表
     axios.post("/api/property/references").then(respond => {
       _this.references = respond.data;
+      // console.log(_this.references);
     });
 
     // 8个表的数据
@@ -999,15 +1124,46 @@ var getUnique = function(nucleotide) {
 };
 
 //  将Object数组转换为Array数组： [{"name":1},{"name":2},{"name":3}] => [1,2,3]
-var object2array = function(objectArray) {
-  var length = objectArray.length;
-  var i;
-  var tmp = [];
-  for (i = 0; i < length; i++) {
-    var str = objectArray[i]["PropertyName"];
-    tmp.push(str);
+// var object2array = function(objectArray) {
+//   var length = objectArray.length;
+//   var i;
+//   var tmp = [];
+//   for (i = 0; i < length; i++) {
+//     var str = objectArray[i]["PropertyName"];
+//     tmp.push(str);
+//   }
+//   // tmp.toString();
+//   // console.log(tmp);
+//   return tmp;
+// };
+
+// 在使用k-tuple分类的时候，处理每种类型的理化特性，整理成对象数组的形式，以便以表格形式呈现
+var object2object = function(objectArray, length, rows) {
+  let i = 0;
+  let tmp = [];
+  // 如果理化特性只满足一行
+  if (length <= 5) {
+    let p = { col0: "", col1: "", col2: "", col3: "", col4: "" };
+    for (let j = 0; j < length; j++) {
+      p["col" + j.toString()] = objectArray[j]["PropertyName"];
+    }
+    tmp.push(p);
+    // console.log(tmp);
+    return tmp;
   }
-  // tmp.toString();
+  // 处理满行，每行5个
+  for (i = 0; i < rows - 1; i++) {
+    let p = { col0: "", col1: "", col2: "", col3: "", col4: "" };
+    for (let j = 0; j < 5; j++) {
+      p["col" + j.toString()] = objectArray[i * 5 + j]["PropertyName"];
+    }
+    tmp.push(p);
+  }
+  let pp = { col0: "", col1: "", col2: "", col3: "", col4: "" };
+  for (let j = 0; j < length - 5 * (rows - 1); j++) {
+    pp["col" + j.toString()] = objectArray[5 * (rows - 1) + j]["PropertyName"];
+  }
+  tmp.push(pp);
   // console.log(tmp);
   return tmp;
 };
