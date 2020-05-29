@@ -67,7 +67,7 @@
           <el-table
             id="myTable1"
             :data="monodnaoriginal"
-            :row-class-name="tabRowClassName"
+            stripe
             empty-text="cannot find"
             border
             style="width: 100%"
@@ -140,7 +140,7 @@
           <el-table
             id="myTable2"
             :data="monodnastandard"
-            :row-class-name="tabRowClassName"
+            stripe
             empty-text="cannot find"
             border
             style="width: 100%"
@@ -213,7 +213,7 @@
             id="myTable3"
             :data="didnaoriginal"
             height="400"
-            :row-class-name="tabRowClassName"
+            stripe
             empty-text="cannot find"
             border
             style="width: 100%"
@@ -290,7 +290,7 @@
             id="myTable4"
             :data="didnastandard"
             height="400"
-            :row-class-name="tabRowClassName"
+            stripe
             empty-text="cannot find"
             border
             style="width: 100%"
@@ -365,7 +365,7 @@
             id="myTable5"
             :data="dirnaoriginal"
             height="400"
-            :row-class-name="tabRowClassName"
+            stripe
             empty-text="cannot find"
             border
             style="width: 100%"
@@ -441,7 +441,7 @@
             id="myTable6"
             :data="dirnastandard"
             height="400"
-            :row-class-name="tabRowClassName"
+            stripe
             empty-text="cannot find"
             border
             style="width: 100%"
@@ -517,7 +517,7 @@
             id="myTable7"
             :data="tridnaoriginal"
             height="400"
-            :row-class-name="tabRowClassName"
+            stripe
             empty-text="cannot find"
             border
             style="width: 100%"
@@ -593,7 +593,7 @@
             id="myTable8"
             :data="tridnastandard"
             height="400"
-            :row-class-name="tabRowClassName"
+            stripe
             empty-text="cannot find"
             border
             style="width: 100%"
@@ -834,12 +834,12 @@ export default {
   methods: {
     // 表格显示具有斑马线
     // eslint-disable-next-line no-unused-vars
-    tabRowClassName({ row, rowIndex }) {
-      var index = rowIndex + 1;
-      if (index % 2 == 0) {
-        return "warning-row";
-      }
-    },
+    // tabRowClassName({ row, rowIndex }) {
+    //   var index = rowIndex + 1;
+    //   if (index % 2 == 0) {
+    //     return "warning-row";
+    //   }
+    // },
 
     // 导出表格
     export2excel() {
